@@ -2,7 +2,9 @@
 #'
 #' @import hyperSpec
 #' @import hySpc.testthat
-
+#'
+#' @importFrom methods is
+#' @importFrom utils maintainer
 "_PACKAGE"
 
 # The following block is used by usethis to automatically manage

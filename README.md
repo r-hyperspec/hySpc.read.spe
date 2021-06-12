@@ -7,10 +7,10 @@ Repository **`hySpc.skeleton`** is a package template ("skeleton") for **`r-hype
 When creating a new package (repository): 
 
 - [ ] replace words `SKELETON` and `hySpc.skeleton` with the new package name in:
-  - [ ] `DESCRIPTION`
-  - [ ] `NEWS.md`
-  - [ ] `README.md`
-  - [ ] `LICENSE`
+  - [ ] `DESCRIPTION` ( Have not fix the link yet)
+  - [ ] `NEWS.md` (Have not matched with tidyverse yet)
+  - [ ] `README.md` (Have not done due to dependency)
+  - [x] `LICENSE`
   - [ ] `tests/testthat.R`
   - [ ] `tests/testthat/test_attached.R`
   - [ ] other files
