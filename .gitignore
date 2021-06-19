@@ -31,3 +31,6 @@ vignettes/resources/*.bib
 # Documentation
 man/*.Rd
 NAMESPACE
+
+# R project file
+project.Rproj
