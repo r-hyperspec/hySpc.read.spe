@@ -1,14 +1,14 @@
-Package: SKELETON
+Package: hySpc.read.spe
 Type: Package
 Version: 0.0.0.9000
-Title: Package's Title
-Description: Short Description of the package.
+Title: File Import Functions for Spectra produced by Princeton Instruments spectrometers
 Authors@R: c(
     person("Claudia",   "Beleites",  role = c("aut"), email = "Claudia.Beleites@chemometrix.gmbh"),
-    person("Erick",     "Oduniyi", role = c("aut","cre"), email = "eeoduniyi@gmail.com"),
-    person("Vilmantas", "Gegzna", role = c("aut")),
-    person("Bryan",     "Hanson", role = c("aut"))
+    person("Sang",     "Truong", role = c("aut","cre"), email = "sttruong@stanford.edu"),
+    person("Vilmantas", "Gegzna", role = c("aut"))
     )
+Description: File import filters for a number of file formats produced by Princeton Instruments spectrometers.
+    The imported data are returned as hyperSpec objects.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyLoad: yes
@@ -18,13 +18,26 @@ Additional_repositories:
 Depends:
     hyperSpec
 Imports: 
-    hySpc.testthat
+    hySpc.testthat,
+    testthat,
+    methods,
+    utils,
+    xml2
 Suggests:
     knitr,
-    covr
+    covr,
+    rmarkdown	
 URL: 
-    https://r-hyperspec.github.io/hySpc.skeleton,
-    https://github.com/r-hyperspec/hySpc.skeleton
-BugReports: https://github.com/r-hyperspec/hySpc.skeleton/issues
+    https://r-hyperspec.github.io/hySpc.read.spe,
+    https://github.com/r-hyperspec/hySpc.read.spe
+BugReports: https://github.com/r-hyperspec/hySpc.read.spe/issues
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
+Roxygen: list(markdown = TRUE)
+Collate: 
+    '0temp_fileio_optional.R'
+    'demo_function.R'
+    'package.R'
+    'wl_convert_units.R'
+    'read_spe.R'
+    'unittestdata.R'
