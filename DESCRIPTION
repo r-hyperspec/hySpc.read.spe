@@ -1,7 +1,7 @@
 Package: hySpc.read.spe
 Type: Package
 Version: 0.0.0.9000
-Title: File Import Functions for Spectra produced by Princeton Instruments spectrometers
+Title: File Import Functions for Spectra Produced by Princeton Instruments Spectrometers
 Authors@R: c(
     person("Claudia",   "Beleites",  role = c("aut"), email = "Claudia.Beleites@chemometrix.gmbh"),
     person("Sang",     "Truong", role = c("aut","cre"), email = "sttruong@stanford.edu"),
