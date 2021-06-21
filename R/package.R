@@ -11,5 +11,6 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @importFrom hyperSpec wl_convert_units
+#' @importFrom hyperSpec .spc_io_postprocess_optional
 ## usethis namespace: end
 NULL
