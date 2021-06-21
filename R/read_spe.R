@@ -41,7 +41,6 @@
 #' @importFrom graphics title
 #' @importFrom methods new
 #' @include  0temp_fileio_optional.R
-#' @importFrom hyperSpec wl_convert_units
 
 read_spe <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F,
                      keys_hdr2data = c(
