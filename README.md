@@ -1,60 +1,3 @@
-<!-- START: delete this TODO section, when not needed -->
-
-<!-- 
-# **TODO** When Creating a New Package (Repository)
-
-Repository **`hySpc.read.spe`** is a package template ("skeleton") for **`r-hyperspec`** family packages.
-
-When creating a new package (repository):
-
-- [x] replace words `SKELETON` and `hySpc.read.spe` with the new package name in:
-  - [x] `DESCRIPTION` ( Have not fix the link yet)
-  - [x] `NEWS.md` (Have not matched with tidyverse yet)
-  - [x] `README.md` (Have not done due to dependency)
-  - [x] `LICENSE`
-  - [x] `tests/testthat.R`
-  - [x] `tests/testthat/test_attached.R`
-  - [x] other files
-- [x] update `DESCRIPTION`:
-  - [x] title
-  - [x] description
-  - [x] the list of authors and contributors
-  - [x] license
-  - [x] other fields
-- [x] update licensing information in
-  - [x] `DESCRIPTION`
-  - [x] `LICENSE`
-  - [x] `README.md`
-  - [x] elswhere
-- [x] update `README`:
-  - [x] update badges
-  - [x] update installation instructions (e.g., instead of `devtools::install(build_vignettes = TRUE)` the following code might be more appropriate if no vignettes are included `devtools::install()`)
-  - [x] update other information, if needed.
-- [ ] create issue labels:
-  - [ ] apply github labels (in `github-helpers/`),
-  - [ ] delete `github-helpers/`
-- [ ] Code & Vignettes:
-  - [ ] Be sure to review `CONTRIBUTING.md` which describes the standard operating procedures for the `r-hyperspec` project.
-  - [ ] Copy the code needed for this new package from the original `hyperSpec` files. Leave the old code untouched for now, as `hyperSpec` has to continue to operate.
-  - [ ] Update the code and write new code as needed.
-  - [ ] Update unit tests as needed.
-  - [ ] Update examples as needed.
-  - [ ] Build and check locally. Chase out the demons.
-  - [ ] Create a new vignette for this package, starting from the relevant vignette in original `hyperSpec`.
-  - [ ] Build and check locally again, fixing any remaining problems.
-  - [ ] Create a pull request as described in `CONTRIBUTING.md`.
-  - [ ] Rinse and repeat to reach perfection!
-- [ ] _update this list of TODOs_
-- [ ] Delete this TODO section.
-
-
-***
- -->
-<!-- END: delete this TODO section, when not needed -->
-
-
-<!-- ---------------------------------------------------------------------- -->
-
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version-last-release/hySpc.read.spe)](https://cran.r-project.org/package=hySpc.read.spe)
 [![R-CMD-check](https://github.com/r-hyperspec/hySpc.read.spe/workflows/R-CMD-check/badge.svg)](https://github.com/r-hyperspec/hySpc.read.spe/actions)
@@ -70,8 +13,8 @@ When creating a new package (repository):
 
 # R Package **hySpc.read.spe**
 
-[**R**](https://www.r-project.org/) package **hySpc.read.spe** is a member of the [**`r-hyperspec`**](https://r-hyperspec.github.io/) packages family, which ...
-**WRITE THE PURPOSE OF THIS PACKAGE**  
+[**R**](https://www.r-project.org/) package **hySpc.read.spe** is a member of the [**`r-hyperspec`**](https://r-hyperspec.github.io/) packages family, which imports a number of file formats produced by Princeton Instruments spectrometers.
+    The imported data are returned as hyperSpec objects.
 
 <!-- ---------------------------------------------------------------------- -->
 

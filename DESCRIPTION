@@ -36,7 +36,5 @@ VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Collate: 
-    'demo_function.R'
     'package.R'
     'read_spe.R'
-    'unittestdata.R'
