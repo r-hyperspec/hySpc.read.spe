@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>This is demo function. — demo_function • hySpc.read.spe</title>
+<title>Read XML footer from SPE file format version 3.0. — read_spe_xml • hySpc.read.spe</title>
 
 
 <!-- jquery -->
@@ -41,8 +41,14 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="This is demo function. — demo_function" />
-<meta property="og:description" content="You should delete this function." />
+<meta property="og:title" content="Read XML footer from SPE file format version 3.0. — read_spe_xml" />
+<meta property="og:description" content="The new SPE file format, introduced in 2012, was designed to be backwards compatible with the
+previous format 2.5. The most prominent change is the new plain text XML footer holding vast
+experimental metadata that gets attached at the end of the file. Thus, the file contains 3
+blocks: a 4100-bytes long binary header, a chunk with spectral data, and the XML footer.
+This function retrieves the XML footer converted to R list, and throws error if it is not available.
+The file format specification is available at Princeton Instruments FTP server under name
+'SPE 3.0 File Format Specification'." />
 
 
 
@@ -113,21 +119,40 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>This is demo function.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/r-hyperspec/hySpc.read.spe/blob/master/R/demo_function.R'><code>R/demo_function.R</code></a></small>
-    <div class="hidden name"><code>demo_function.Rd</code></div>
+    <h1>Read XML footer from SPE file format version 3.0.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-hyperspec/hySpc.read.spe/blob/master/R/read_spe.R'><code>R/read_spe.R</code></a></small>
+    <div class="hidden name"><code>read_spe_xml.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>You should delete this function.</p>
+    <p>The new SPE file format, introduced in 2012, was designed to be backwards compatible with the
+previous format 2.5. The most prominent change is the new plain text XML footer holding vast
+experimental metadata that gets attached at the end of the file. Thus, the file contains 3
+blocks: a 4100-bytes long binary header, a chunk with spectral data, and the XML footer.
+This function retrieves the XML footer converted to R list, and throws error if it is not available.
+The file format specification is available at Princeton Instruments FTP server under name
+'SPE 3.0 File Format Specification'.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>demo_function</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>read_spe_xml</span><span class='op'>(</span><span class='va'>filename</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>filename</th>
+      <td><ul>
+<li><p>SPE filename</p></li>
+</ul></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>NULL</code></p>
+    <p>xml data from the file converted to R list</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function relies on R package xml2 to work correctly</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
