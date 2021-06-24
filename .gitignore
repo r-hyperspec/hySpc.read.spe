@@ -35,3 +35,4 @@ NAMESPACE
 # R project file
 project.Rproj
 hySpc.read.spe.Rproj
+*.html
