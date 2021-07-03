@@ -28,11 +28,15 @@ res <- knitr::knit_child("list-of-vignettes.md", quiet = TRUE)
 cat(res, sep = '\n')
 
 # Example read file
-HeNe <- system.file("extdata", "HeNe.SPE", package = "hySpc.read.spe")
-read_spe(HeNe)
-spe_showcalpoints(HeNe)
+blut1 <- system.file("extdata", "blut1.SPE", package = "hySpc.read.spe")
+read_spe(blut1)
+spe_showcalpoints(blut1)
 
-spe_format <- system.file("extdata", "spe_format_3.0.SPE", package = "hySpc.read.spe")
-read_spe(spe_format)
-read_spe(spe_format)
+blut2 <- system.file("extdata", "blut2.SPE", package = "hySpc.read.spe")
+read_spe(blut2)
+spe_showcalpoints(blut2)
+
+spe3 <- system.file("extdata", "spe_format_3.0.SPE", package = "hySpc.read.spe")
+read_spe(spe3)
+spe_showcalpoints(spe3)
 
