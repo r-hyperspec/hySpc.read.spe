@@ -23,7 +23,8 @@ Imports:
     testthat,
     methods,
     utils,
-    xml2
+    xml2,
+    bookdown
 Suggests:
     knitr,
     covr,
