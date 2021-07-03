@@ -23,7 +23,8 @@ Imports:
     testthat,
     methods,
     utils,
-    xml2
+    xml2,
+    bookdown
 Suggests:
     knitr,
     covr,
@@ -38,3 +39,4 @@ Roxygen: list(markdown = TRUE)
 Collate: 
     'package.R'
     'read_spe.R'
+    'spe_showcalpoints.R'
