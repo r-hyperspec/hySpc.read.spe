@@ -1,15 +1,16 @@
-# SKELETON
+# hySpc.read.spe 0.0.x 2021-xx-xx
 
 ## Acknowledgements
-The `hyperSpec` team gratefully acknowledges support from the Google Summer of Code program, which sponsored student Erick Oduniyi during summer 2020.
-Erick and the team carried out a significant overhaul of `hyperSpec` which led to this release.
+The `hyperSpec` team gratefully acknowledges support from the Google Summer of Code program, which sponsored student Sang Truong during summer 2021.
+Sang and the team carried out a significant overhaul of `hyperSpec` which led to this release.
 
-# Version
+## User-Visible Changes
 
-## User-visible Changes
-
-### Bug Fixes
-### Breaking Changes
-### New Functions
-
-## Internal Changes
+* Moved functions from **hyperSpec** to **hySpc.read.spe**:
+  - `hyperSpec::read.spe()` -> `hySpc.read.spe::read_spe()`
+  - `hyperSpec::.read.spe.xml()` -> `hySpc.read.spe::read_spe_xml()`
+  - `hyperSpec::.read.spe.xml_string()` -> `hySpc.read.spe::read_spe_xml_string()`
+  - `hyperSpec::.read.spe.header()` -> `hySpc.read.spe::read_spe_header()`
+  - `hyperSpec::spe.showcalpoints()` -> `hySpc.read.spe::spe.showcalpoints()`
+## New Features
+* When new versions of the data are pushed to this repo, the newly created `.tar.gz` is automatically deployed to `pkg-repo`.
