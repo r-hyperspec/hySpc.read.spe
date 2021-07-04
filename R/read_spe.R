@@ -112,13 +112,6 @@ read_spe <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F,
   polyorder <- hdr$xCalPolyOrder
   coeffs <- hdr$xCalPolCoeffs[seq(polyorder + 1)]
 
-  vM <- vanderMonde(spc_wavelength, polyorder)
-
-  # Check if we have laser wavelength
-  if (hdr$LaserWavelen < 10) {
-      hdr$LaserWavelen <- NULL
-  }
-
   # Perform convertion
   spc_wavelength <- wl_convert_units(
     from   = .wl_fix_unit_name(hdr$xCalPolyUnit),
@@ -126,6 +119,13 @@ read_spe <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F,
     x      = as.numeric(vM %*% coeffs),
     ref_wl = hdr$LaserWavelen
   )
+
+  vM <- vanderMonde(spc_wavelength, polyorder)
+
+  # Check if we have laser wavelength
+  if (hdr$LaserWavelen < 10) {
+      hdr$LaserWavelen <- NULL
+  }
 
   spc@label$.wavelength <- switch(xaxis,
                                   nm = expression("Wavelength, nm"),
