@@ -64,7 +64,8 @@ show_reviewers_notes = getOption("show_reviewers_notes", TRUE)
 dir.create("resources", showWarnings = FALSE)
 knitr::write_bib(
   c("hyperSpec"),
-  file = "resources/intro-pkg.bib"
+  file = "resources/intro-pkg.bib",
+  prefix = "R_"
 )
 ```
 
@@ -75,4 +76,3 @@ knitr::write_bib(
 res <- knitr::knit_child("list-of-vignettes.md", quiet = TRUE)
 cat(res, sep = '\n')
 ```
-
