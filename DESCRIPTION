@@ -5,7 +5,7 @@ Title: File Import Functions for Spectra Produced by Princeton Instruments Spect
 Authors@R: c(
     person("Claudia",   "Beleites",  role = c("aut"), email = "Claudia.Beleites@chemometrix.gmbh"),
     person("Sang",     "Truong", role = c("aut","cre"), email = "sttruong@stanford.edu"),
-    person("Vilmantas", "Gegzna", role = c("aut")),
+    person("Vilmantas", "Gegzna", role = c("ctb")),
     person("Roman", "Kiselev", role = c("aut"))
     )
 Description: File import filters for a number of file formats produced by Princeton Instruments spectrometers.
@@ -14,11 +14,11 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyLoad: yes
 LazyData: yes
-Additional_repositories: 
+Additional_repositories:
     https://r-hyperspec.github.io/pkg-repo/
 Depends:
     hyperSpec
-Imports: 
+Imports:
     hySpc.testthat,
     testthat,
     methods,
@@ -28,15 +28,15 @@ Imports:
 Suggests:
     knitr,
     covr,
-    rmarkdown	
-URL: 
+    rmarkdown
+URL:
     https://r-hyperspec.github.io/hySpc.read.spe,
     https://github.com/r-hyperspec/hySpc.read.spe
 BugReports: https://github.com/r-hyperspec/hySpc.read.spe/issues
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
-Collate: 
+Collate:
     'package.R'
     'read_spe.R'
     'spe_showcalpoints.R'
