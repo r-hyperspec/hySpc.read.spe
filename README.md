@@ -1,7 +1,6 @@
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version-last-release/hySpc.read.spe)](https://cran.r-project.org/package=hySpc.read.spe)
 [![R-CMD-check](https://github.com/r-hyperspec/hySpc.read.spe/workflows/R-CMD-check/badge.svg)](https://github.com/r-hyperspec/hySpc.read.spe/actions)
-[![Travis](https://travis-ci.com/r-hyperspec/hySpc.read.spe.svg?branch=develop)](https://travis-ci.com/github/r-hyperspec/hySpc.read.spe)
 ![Website (pkgdown)](https://github.com/r-hyperspec/hySpc.read.spe/workflows/Website%20(pkgdown)/badge.svg)
 [![Codecov](https://codecov.io/gh/r-hyperspec/hySpc.read.spe/branch/develop/graph/badge.svg)](https://codecov.io/gh/r-hyperspec/hySpc.read.spe?branch=develop)
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
