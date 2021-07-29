@@ -7,7 +7,9 @@
 #'
 #' @export
 #' @examples
-#' library(hySpc.read.spe)
+#' suppressPackageStartupMessages({
+#'   library(hySpc.read.spe)
+#' })
 #'
 #' # Example 1
 #' blut1 <- system.file("extdata", "blut1.SPE", package = "hySpc.read.spe")
@@ -15,7 +17,6 @@
 #'
 #'
 #' # Example 2: expect warnings as calibration data is not present.
-#' # Plot is not produced too.
 #' spe3 <- system.file(
 #'   "extdata", "spe_format_3.0.SPE",
 #'   package = "hySpc.read.spe"

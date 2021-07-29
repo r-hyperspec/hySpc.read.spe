@@ -52,7 +52,9 @@
 #' @export
 #'
 #' @examples
-#' library(hySpc.read.spe)
+#' suppressPackageStartupMessages({
+#'   library(hySpc.read.spe)
+#' })
 #'
 #' # Example 1
 #' blut1 <- system.file("extdata", "blut1.SPE", package = "hySpc.read.spe")
