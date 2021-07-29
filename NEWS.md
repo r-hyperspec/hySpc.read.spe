@@ -11,6 +11,8 @@ Sang and the team carried out a significant overhaul of `hyperSpec` which led to
   - `hyperSpec::.read.spe.xml()` -> `hySpc.read.spe::read_spe_xml()`
   - `hyperSpec::.read.spe.xml_string()` -> `hySpc.read.spe::read_spe_xml_string()`
   - `hyperSpec::.read.spe.header()` -> `hySpc.read.spe::read_spe_header()`
-  - `hyperSpec::spe.showcalpoints()` -> `hySpc.read.spe::spe.showcalpoints()`
+  - `hyperSpec::spe.showcalpoints()` -> `hySpc.read.spe::spe_show_calibration_points()`
+  
 ## New Features
+
 * When new versions of the data are pushed to this repo, the newly created `.tar.gz` is automatically deployed to `pkg-repo`.
