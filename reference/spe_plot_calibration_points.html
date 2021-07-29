@@ -167,7 +167,9 @@ thus going to count per second unit.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-hyperspec.github.io/hySpc.read.spe'>hySpc.read.spe</a></span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/message.html'>suppressPackageStartupMessages</a></span><span class='op'>(</span><span class='op'>{</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-hyperspec.github.io/hySpc.read.spe'>hySpc.read.spe</a></span><span class='op'>)</span>
+<span class='op'>}</span><span class='op'>)</span>
 
 <span class='co'># Example 1</span>
 <span class='va'>blut1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"blut1.SPE"</span>, package <span class='op'>=</span> <span class='st'>"hySpc.read.spe"</span><span class='op'>)</span>
@@ -175,7 +177,6 @@ thus going to count per second unit.</p></td>
 </div><div class='img'><img src='spe_plot_calibration_points-1.png' alt='' width='466' height='288' /></div><div class='input'>
 
 <span class='co'># Example 2: expect warnings as calibration data is not present.</span>
-<span class='co'># Plot is not produced too.</span>
 <span class='va'>spe3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>
   <span class='st'>"extdata"</span>, <span class='st'>"spe_format_3.0.SPE"</span>,
   package <span class='op'>=</span> <span class='st'>"hySpc.read.spe"</span>
