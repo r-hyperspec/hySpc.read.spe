@@ -4,7 +4,6 @@
 
 # Session Data files
 .RData
-.Ruserdata
 
 # Example code in package build process
 *-Ex.R
@@ -14,25 +13,26 @@
 
 # RStudio files
 .Rproj.user
-# *.Rproj
+*.Rproj
 
 # Local pkgdown files
 docs
 
 # Unit tests
+tests/testthat/_snaps/attached/
 tests/testthat/Rplots.pdf
 tests/testthat/fileio
 
 # Vignettes
 vignettes/*-pkg.bib
 vignettes/resources/*.bib
-# vignettes/fileio
+vignettes/fileio
 
 # Documentation
 man/*.Rd
 NAMESPACE
+NEWS.html
+README.html
 
-# R project file
-project.Rproj
-hySpc.read.spe.Rproj
-*.html
+# Other
+_tmp/
