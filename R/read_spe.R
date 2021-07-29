@@ -6,31 +6,37 @@
 # July 2015
 
 
-#' Import WinSpec SPE File
+#' Import WinSpec SPE file
 #'
 #' Import function for WinSpec SPE files (file version up to 3.0).
-#' The calibration data (polynome and calibration data pairs) for x-axis
+#' The calibration data (polynomial and calibration data pairs) for x-axis
 #' are automatically read and applied to the spectra. Note that
 #' the y-calibration data structure is not extracted from the file
 #' since it is not saved there by WinSpec and is always empty.
 #'
-#' @param filename Name of the SPE file to read data from
-#' @param xaxis Units of x-axis, e.g., *"file"*, *"px"*, *"nm"*, *"energy"*,
-#'        *"raman"*, *...*
-#' `read_spe` function automatically checks if the x-calibration data are
-#' available and uses them (if possible) to reconstruct the xaxis
-#' in the selected units.
-#' @param acc2avg whether to divide the actual data set by the number of
-#' accumulations, thus transforming *accumulated* spectra to
-#' *averaged* spectra. WinSpec does not do this automatically, so the
-#' spectral intensity is always proportional to the number of accumulations.
-#' The flag `@@data$averaged` is automatically set to `TRUE`.
-#' @param cts_sec whether to divide the actual data set by the exposure time,
-#' thus going to count per second unit.
-#' @param keys_hdr2data Which metadata from the file header should be saved to
-#' the `Data` slot of a newly created hyperSpec object
+#' @param filename Name of the SPE file to read data from.
 #'
-#' @return hyperSpec object
+#' @param xaxis Units of x-axis, e.g., `"file"`, `"px"`, `"nm"`, `"energy"`,
+#'        `"raman"`, `...`
+#'
+#'    Function [read_spe()] automatically checks if the x-calibration data are
+#' available and uses them (if possible) to reconstruct the `xaxis`
+#' in the selected units.
+#'
+#' @param acc2avg Whether to divide the actual data set by the number of
+#'        accumulations, thus transforming *accumulated* spectra to
+#'        *averaged* spectra. WinSpec does not do this automatically, so the
+#'        spectral intensity is always proportional to the number of
+#'        accumulations.
+#'        The flag `@data$averaged` is automatically set to `TRUE`.
+#'
+#' @param cts_sec Whether to divide the actual data set by the exposure time,
+#'        thus going to count per second unit.
+#'
+#' @param keys_hdr2data Which metadata from the file header should be saved to
+#'        the `@data` slot of a newly created `hyperSpec` object
+#'
+#' @return `hyperSpec` object.
 #'
 #' @rdname read_spe
 #'
@@ -41,7 +47,7 @@
 #' @importFrom graphics title
 #' @importFrom methods new
 
-read_spe <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F,
+read_spe <- function(filename, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
                      keys_hdr2data = c(
                        "exposure_sec",
                        "LaserWavelen",
@@ -67,7 +73,7 @@ read_spe <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F,
     readBin(raw.data, "integer", length(raw.data) / 2, 2, signed = FALSE) # uint
   )
 
-  # Create a structured data.frame that accomodates spectral data
+  # Create a structured data.frame that accommodates spectral data
   dim(spc) <- c(hdr$xdim, hdr$ydim * hdr$numFrames)
   extra_data <- data.frame(
     px.y = rep(seq_len(hdr$ydim), hdr$numFrames),
@@ -148,15 +154,18 @@ read_spe <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F,
   .spc_io_postprocess_optional(spc, filename)
 }
 
-#' Read XML footer from SPE file format version 3.0.
+#' Read XML footer from SPE file format version 3.0
 #'
-#' The new SPE file format, introduced in 2012, was designed to be backwards compatible with the
-#' previous format 2.5. The most prominent change is the new plain text XML footer holding vast
-#' experimental metadata that gets attached at the end of the file. Thus, the file contains 3
-#' blocks: a 4100-bytes long binary header, a chunk with spectral data, and the XML footer.
-#' This function retrieves the XML footer converted to R list, and throws error if it is not available.
-#' The file format specification is available at Princeton Instruments FTP server under name
-#' 'SPE 3.0 File Format Specification'.
+#' The new SPE file format, introduced in 2012, was designed to be backwards
+#' compatible with the previous format 2.5. The most prominent change is the
+#' new plain text XML footer holding vast experimental metadata that gets
+#' attached at the end of the file. Thus, the file contains 3 blocks:
+#' a 4100-bytes long binary header, a chunk with spectral data, and the XML
+#' footer.
+#' This function retrieves the XML footer converted to R list, and throws error
+#' if it is not available.
+#' The file format specification is available at Princeton Instruments FTP
+#' server under name 'SPE 3.0 File Format Specification'.
 #'
 #' This function relies on R package xml2 to work correctly
 #'
@@ -165,7 +174,6 @@ read_spe <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F,
 #' @return xml data from the file converted to R list
 #' @importFrom xml2 as_list read_xml
 #'
-#' @concept io
 read_spe_xml <- function(filename) {
   as_list(read_xml(read_spe_xml_string(filename)))
 }
@@ -173,16 +181,15 @@ read_spe_xml <- function(filename) {
 
 #' read_spe_xml_string
 #'
-#' Read XML footer from SPE file format version 3.0 and return it as a long string
-#' for subsequent parsing. Basically the purpose of this function is to check
-#' that the file format version is 3.0 or above, and to find and read the
-#' correct part of this file.
+#' Read XML footer from SPE file format version 3.0 and return it as a long
+#' string for subsequent parsing. Basically the purpose of this function is
+#' to check that the file format version is 3.0 or above, and to find and
+#' read the correct part of this file.
 #'
 #' @param filename - SPE filename
 #'
 #' @return string containing XML footer
 #'
-#' @concept io
 #' @noRd
 
 read_spe_xml_string <- function(filename) {
@@ -205,8 +212,10 @@ read_spe_xml_string <- function(filename) {
 }
 
 
-#' @describeIn read.spe Read only header of a WinSpec SPE file (version 2.5)
+#' @describeIn read_spe Read only header of a WinSpec SPE file (version 2.5)
+#'
 #' @return hdr list with `key=value` pairs
+#'
 #' @noRd
 read_spe_header <- function(filename) {
   # Read the 4100-byte long binary header from the SPE file and parse it
@@ -276,18 +285,20 @@ read_spe_header <- function(filename) {
   return(hdr)
 }
 
+
+# Unit tests -----------------------------------------------------------------
+
 #' @import hySpc.testthat
 #' @import testthat
-############# UNIT TESTS ################
 hySpc.testthat::test(read_spe) <- function() {
 
   # Filenames
+
   # polystyrene <- "fileio\\spe\\polystyrene.SPE"
   blut1 <- system.file("extdata", "blut1.SPE", package = "hySpc.read.spe")
   spe3 <- system.file("extdata", "spe_format_3.0.SPE", package = "hySpc.read.spe")
 
-  # unit tests for `read_spe` itself
-  ##################################
+  # Unit tests for `read_spe` itself
   test_that("read_spe correctly extracts spectral data from SPE file", {
     fname <- blut1
     expect_true(file.exists(fname))
@@ -310,17 +321,22 @@ hySpc.testthat::test(read_spe) <- function() {
   })
 
 
-  test_that("read_spe correctly parses XML footer with SPE 3.0 file and saves metadata in hyperSpec object", {
+  test_that(paste(
+    "read_spe correctly parses XML footer with SPE 3.0 file and",
+    "saves metadata in hyperSpec object"
+  ), {
     fname <- spe3
     expect_true(file.exists(fname))
     spc <- read_spe(fname)
 
-    expect_equal(attr(spc$xml$SpeFormat$DataFormat$DataBlock, "pixelFormat"), "MonochromeFloating32")
+    expect_equal(
+      attr(spc$xml$SpeFormat$DataFormat$DataBlock, "pixelFormat"),
+      "MonochromeFloating32"
+    )
   })
 
 
-  # unit tests for helper functions of `read_spe` (whose name starts with .)
-  ##########################################################################
+  # Unit tests for helper functions of `read_spe` (whose name starts with .)
   test_that("read_spe_xml_string throws error on SPE format below v3.0", {
     fname <- blut1
     expect_true(file.exists(fname))
@@ -339,7 +355,10 @@ hySpc.testthat::test(read_spe) <- function() {
   })
 
 
-  test_that("read_spe_xml correctly parses the XML footer and can extract the actual data", {
+  test_that(paste(
+    "read_spe_xml correctly parses the XML footer and",
+    " can extract the actual data"
+  ), {
     expect_true(file.exists(spe3))
 
     # Read XML footer and convert it to R list
@@ -352,7 +371,10 @@ hySpc.testthat::test(read_spe) <- function() {
 
     # Check file format version and namespace URL
     expect_equal(attr(x$SpeFormat, "version"), "3.0")
-    expect_equal(attr(x$SpeFormat, "xmlns"), "http://www.princetoninstruments.com/spe/2009")
+    expect_equal(
+      attr(x$SpeFormat, "xmlns"),
+      "http://www.princetoninstruments.com/spe/2009"
+    )
 
     # Check that some children are present
     expect_true("DataFormat" %in% names(x$SpeFormat))
@@ -365,7 +387,13 @@ hySpc.testthat::test(read_spe) <- function() {
     expect_equal(attr(info, "created"), "2018-01-26T16:31:09.0979397+01:00")
 
     # Check that we can correctly extract pixel format and laser line
-    expect_equal(attr(x$SpeFormat$DataFormat$DataBlock, "pixelFormat"), "MonochromeFloating32")
-    expect_equal(attr(x$SpeFormat$Calibrations$WavelengthMapping, "laserLine"), "785")
+    expect_equal(
+      attr(x$SpeFormat$DataFormat$DataBlock, "pixelFormat"),
+      "MonochromeFloating32"
+    )
+    expect_equal(
+      attr(x$SpeFormat$Calibrations$WavelengthMapping, "laserLine"),
+      "785"
+    )
   })
 }
