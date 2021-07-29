@@ -293,8 +293,6 @@ read_spe_header <- function(file) {
 
 # Unit tests -----------------------------------------------------------------
 
-#' @import hySpc.testthat
-#' @import testthat
 hySpc.testthat::test(read_spe) <- function() {
 
   # File names
