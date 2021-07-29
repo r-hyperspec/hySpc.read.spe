@@ -1,10 +1,16 @@
-#' @describeIn read_spe Plot the WinSpec SPE file (version 2.5) and show the
-#' calibration points stored inside of it (x-axis calibration)
+#' Plot spectra with calibration points in WinSpec SPE file
+#'
+#' Plot the WinSpec SPE file (version 2.5) and show the calibration points
+#' stored inside of it (x-axis calibration).
+#'
+#' @inheritParams read_spe
+#'
 #' @export
 #'
-#' @concept io
-#'
-spe_showcalpoints <- function(file, xaxis = "file", acc2avg = F, cts_sec = F) {
+spe_showcalpoints <- function(file,
+                                        xaxis = "file",
+                                        acc2avg = FALSE,
+                                        cts_sec = FALSE) {
   hdr <- read_spe_header(file)
   xaxis <- .wl_fix_unit_name(xaxis)
 
