@@ -6,6 +6,8 @@
 # July 2015
 
 
+# Function -------------------------------------------------------------------
+
 #' Import WinSpec SPE file
 #'
 #' Import function for WinSpec SPE files (file version up to 3.0).
@@ -157,6 +159,9 @@ read_spe <- function(file, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
   .spc_io_postprocess_optional(spc, file)
 }
 
+
+# Helper functions -----------------------------------------------------------
+
 #' Read XML footer from SPE file format version 3.0
 #'
 #' The new SPE file format, introduced in 2012, was designed to be backwards
@@ -178,6 +183,7 @@ read_spe <- function(file, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
 #'
 #' @importFrom xml2 as_list read_xml
 #'
+#' @noRd
 read_spe_xml <- function(file) {
   as_list(read_xml(read_spe_xml_string(file)))
 }
@@ -217,11 +223,14 @@ read_spe_xml_string <- function(file) {
 }
 
 
-#' @describeIn read_spe Read only header of a WinSpec SPE file (version 2.5)
+# @describeIn read_spe
+#
+#' Read only header of a WinSpec SPE file (version 2.5)
 #'
 #' @return hdr list with `key=value` pairs
 #'
 #' @noRd
+
 read_spe_header <- function(file) {
   # Read the 4100-byte long binary header from the SPE file and parse it
 
