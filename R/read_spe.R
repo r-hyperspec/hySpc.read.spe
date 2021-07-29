@@ -51,6 +51,29 @@
 #'
 #' @export
 #'
+#' @examples
+#' library(hySpc.read.spe)
+#'
+#' # Example 1
+#' blut1 <- system.file("extdata", "blut1.SPE", package = "hySpc.read.spe")
+#' spc_blut1 <- read_spe(blut1)
+#'
+#' spc_blut1
+#'
+#' plot(spc_blut1)
+#'
+#'
+#' # Example 2
+#' spe3 <- system.file(
+#'   "extdata", "spe_format_3.0.SPE",
+#'   package = "hySpc.read.spe"
+#' )
+#' spc_spe3 <- read_spe(spe3)
+#'
+#' spc_spe3
+#'
+#' plot(spc_spe3)
+#'
 read_spe <- function(file, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
                      keys_hdr2data = c(
                        "exposure_sec",
