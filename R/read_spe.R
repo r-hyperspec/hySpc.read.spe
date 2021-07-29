@@ -14,14 +14,17 @@
 #' the y-calibration data structure is not extracted from the file
 #' since it is not saved there by WinSpec and is always empty.
 #'
+#' @rdname read_spe
+#'
+#'
 #' @param file Name of the SPE file to read data from.
 #'
 #' @param xaxis Units of x-axis, e.g., `"file"`, `"px"`, `"nm"`, `"energy"`,
 #'        `"raman"`, `...`
 #'
 #'    Function [read_spe()] automatically checks if the x-calibration data are
-#' available and uses them (if possible) to reconstruct the `xaxis`
-#' in the selected units.
+#' available and uses them (if possible) to reconstruct the `xaxis` in the
+#' selected units.
 #'
 #' @param acc2avg Whether to divide the actual data set by the number of
 #'        accumulations, thus transforming *accumulated* spectra to
@@ -38,15 +41,14 @@
 #'
 #' @return `hyperSpec` object.
 #'
-#' @rdname read_spe
 #'
 #' @author R. Kiselev, C. Beleites
-#' @export
 #'
-#' @concept io
 #' @importFrom graphics title
 #' @importFrom methods new
-
+#'
+#' @export
+#'
 read_spe <- function(file, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
                      keys_hdr2data = c(
                        "exposure_sec",
