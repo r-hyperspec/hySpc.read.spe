@@ -39,7 +39,7 @@ spe_plot_calibration_points <- function(file,
 
   if (hdr$xCalPointCount == 0) {
     warning("No calibration data! Nothing to show")
-    return("")
+    return(invisible(NULL))
   }
 
   markpeak(spc, wl_convert_units(
