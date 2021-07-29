@@ -10,3 +10,4 @@
 ^pkgdown$
 ^CONTRIBUTING\.md$
 ^github-helpers$
+^inst/extdata/winspec.pdf$
