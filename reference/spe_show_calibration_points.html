@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Changelog • hySpc.read.spe</title>
+<title>Plot spectra with calibration points in WinSpec SPE file — spe_show_calibration_points • hySpc.read.spe</title>
 
 
 <!-- jquery -->
@@ -41,7 +41,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Changelog" />
+<meta property="og:title" content="Plot spectra with calibration points in WinSpec SPE file — spe_show_calibration_points" />
+<meta property="og:description" content="Plot the WinSpec SPE file (version 2.5) and show the calibration points
+stored inside of it (x-axis calibration)." />
 
 
 
@@ -60,7 +62,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-news">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -115,59 +117,61 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1 data-toc-skip>Changelog <small></small></h1>
-      <small>Source: <a href='https://github.com/r-hyperspec/hySpc.read.spe/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
+    <h1>Plot spectra with calibration points in WinSpec SPE file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/r-hyperspec/hySpc.read.spe/blob/master/R/spe_showcalpoints.R'><code>R/spe_showcalpoints.R</code></a></small>
+    <div class="hidden name"><code>spe_show_calibration_points.Rd</code></div>
     </div>
 
-    <div id="hyspcreadspe-00x-2021-xx-xx" class="section level1">
-<h1 class="page-header" data-toc-text="0.0">
-<a href="#hyspcreadspe-00x-2021-xx-xx" class="anchor"></a>hySpc.read.spe 0.0.x 2021-xx-xx</h1>
-<div id="acknowledgements" class="section level2">
-<h2 class="hasAnchor">
-<a href="#acknowledgements" class="anchor"></a>Acknowledgements</h2>
-<p>The <code>hyperSpec</code> team gratefully acknowledges support from the Google Summer of Code program, which sponsored student Sang Truong during summer 2021. Sang and the team carried out a significant overhaul of <code>hyperSpec</code> which led to this release.</p>
-</div>
-<div id="user-visible-changes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#user-visible-changes" class="anchor"></a>User-Visible Changes</h2>
-<ul>
-<li>Moved functions from <strong>hyperSpec</strong> to <strong>hySpc.read.spe</strong>:
-<ul>
-<li>
-<code><a href="https://r-hyperspec.github.io/hyperSpec/reference/DEPRECATED-read.spe.html">hyperSpec::read.spe()</a></code> -&gt; <code><a href="../reference/read_spe.html">hySpc.read.spe::read_spe()</a></code>
-</li>
-<li>
-<code><a href="https://r-hyperspec.github.io/hyperSpec/reference/DEPRECATED-read.spe.xml.html">hyperSpec::.read.spe.xml()</a></code> -&gt; <code><a href="../reference/read_spe_xml.html">hySpc.read.spe::read_spe_xml()</a></code>
-</li>
-<li>
-<code>hyperSpec::.read.spe.xml_string()</code> -&gt; <code>hySpc.read.spe::read_spe_xml_string()</code>
-</li>
-<li>
-<code>hyperSpec::.read.spe.header()</code> -&gt; <code>hySpc.read.spe::read_spe_header()</code>
-</li>
-<li>
-<code><a href="https://r-hyperspec.github.io/hyperSpec/reference/DEPRECATED-read.spe.html">hyperSpec::spe.showcalpoints()</a></code> -&gt; <code><a href="../reference/spe_show_calibration_points.html">hySpc.read.spe::spe_show_calibration_points()</a></code>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-<div id="new-features" class="section level2">
-<h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New Features</h2>
-<ul>
-<li>When new versions of the data are pushed to this repo, the newly created <code>.tar.gz</code> is automatically deployed to <code>pkg-repo</code>.</li>
-</ul>
-</div>
-</div>
-  </div>
+    <div class="ref-description">
+    <p>Plot the WinSpec SPE file (version 2.5) and show the calibration points
+stored inside of it (x-axis calibration).</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>spe_show_calibration_points</span><span class='op'>(</span>
+  <span class='va'>file</span>,
+  xaxis <span class='op'>=</span> <span class='st'>"file"</span>,
+  acc2avg <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cts_sec <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>file</th>
+      <td><p>Name of the SPE file to read data from.</p></td>
+    </tr>
+    <tr>
+      <th>xaxis</th>
+      <td><p>Units of x-axis, e.g., <code>"file"</code>, <code>"px"</code>, <code>"nm"</code>, <code>"energy"</code>,
+<code>"raman"</code>, <code>...</code></p>
+<p>Function <code><a href='read_spe.html'>read_spe()</a></code> automatically checks if the x-calibration data are
+available and uses them (if possible) to reconstruct the <code>xaxis</code>
+in the selected units.</p></td>
+    </tr>
+    <tr>
+      <th>acc2avg</th>
+      <td><p>Whether to divide the actual data set by the number of
+accumulations, thus transforming <em>accumulated</em> spectra to
+<em>averaged</em> spectra. WinSpec does not do this automatically, so the
+spectral intensity is always proportional to the number of
+accumulations.
+The flag <code>@data$averaged</code> is automatically set to <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>cts_sec</th>
+      <td><p>Whether to divide the actual data set by the exposure time,
+thus going to count per second unit.</p></td>
+    </tr>
+    </table>
+
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
-
 </div>
 
 
