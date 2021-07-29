@@ -39,4 +39,4 @@ Roxygen: list(markdown = TRUE)
 Collate:
     'package.R'
     'read_spe.R'
-    'spe_showcalpoints.R'
+    'spe_show_calibration_points.R'
