@@ -49,7 +49,6 @@ read_spe <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F,
                        "numFrames",
                        "darkSubtracted"
                      )) {
-
   hdr <- read_spe_header(filename)
 
   # This is the size of one data point in bytes.
@@ -62,10 +61,10 @@ read_spe <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F,
 
   # Convert raw spectral data according to the datatype defined in the header
   spc <- switch(hdr$datatype + 1,
-                readBin(raw.data, "double", length(raw.data) / 4, 4), # float
-                readBin(raw.data, "integer", length(raw.data) / 4, 4, signed = TRUE), # long
-                readBin(raw.data, "integer", length(raw.data) / 2, 2, signed = TRUE), # int
-                readBin(raw.data, "integer", length(raw.data) / 2, 2, signed = FALSE) # uint
+    readBin(raw.data, "double", length(raw.data) / 4, 4), # float
+    readBin(raw.data, "integer", length(raw.data) / 4, 4, signed = TRUE), # long
+    readBin(raw.data, "integer", length(raw.data) / 2, 2, signed = TRUE), # int
+    readBin(raw.data, "integer", length(raw.data) / 2, 2, signed = FALSE) # uint
   )
 
   # Create a structured data.frame that accomodates spectral data
@@ -83,8 +82,9 @@ read_spe <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F,
 
   # Create hyperSpec object
   spc <- new("hyperSpec",
-             spc = t(spc), data = extra_data,
-             labels = list(spc = "counts", .wavelength = "pixel number")
+    spc = t(spc),
+    data = extra_data,
+    labels = list(spc = "counts", .wavelength = "pixel number")
   )
 
   # For SPE 3.0 and above we need to read the XML header
@@ -119,7 +119,7 @@ read_spe <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F,
     hdr$LaserWavelen <- NULL
   }
 
-  # Perform convertion
+  # Perform conversion
   spc@wavelength <- wl_convert_units(
     from   = .wl_fix_unit_name(hdr$xCalPolyUnit),
     to     = xaxis,
@@ -127,13 +127,14 @@ read_spe <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F,
     ref_wl = hdr$LaserWavelen
   )
 
-  spc@label$.wavelength <- switch(xaxis,
-                                  nm = expression("Wavelength, nm"),
-                                  invcm = expression(tilde(nu) / cm^-1),
-                                  ev = expression("Energy / eV"),
-                                  freq = expression(nu / THz),
-                                  raman = expression(Raman ~ shift / cm^-1)
-  )
+  spc@label$.wavelength <-
+    switch(xaxis,
+      nm    = expression("Wavelength, nm"),
+      invcm = expression(tilde(nu) / cm^-1),
+      ev    = expression("Energy / eV"),
+      freq  = expression(nu / THz),
+      raman = expression(Raman ~ shift / cm^-1)
+    )
   if (acc2avg) {
     spc <- spc / hdr$accumulCount
     spc@data$averaged <- T
@@ -368,4 +369,3 @@ hySpc.testthat::test(read_spe) <- function() {
     expect_equal(attr(x$SpeFormat$Calibrations$WavelengthMapping, "laserLine"), "785")
   })
 }
-
