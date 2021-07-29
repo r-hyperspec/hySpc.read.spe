@@ -23,7 +23,6 @@ Imports:
     hySpc.testthat,
     testthat,
     methods,
-    utils,
     xml2,
     bookdown
 Suggests:
