@@ -6,7 +6,22 @@
 #' @inheritParams read_spe
 #'
 #' @export
-
+#' @examples
+#' library(hySpc.read.spe)
+#'
+#' # Example 1
+#' blut1 <- system.file("extdata", "blut1.SPE", package = "hySpc.read.spe")
+#' spe_plot_calibration_points(blut1)
+#'
+#'
+#' # Example 2: expect warnings as calibration data is not present.
+#' # Plot is not produced too.
+#' spe3 <- system.file(
+#'   "extdata", "spe_format_3.0.SPE",
+#'   package = "hySpc.read.spe"
+#' )
+#' spe_plot_calibration_points(spe3)
+#'
 spe_plot_calibration_points <- function(file,
                                         xaxis = "file",
                                         acc2avg = FALSE,
