@@ -4,8 +4,8 @@
 #'
 #' @concept io
 #'
-spe_showcalpoints <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F) {
-  hdr <- read_spe_header(filename)
+spe_showcalpoints <- function(file, xaxis = "file", acc2avg = F, cts_sec = F) {
+  hdr <- read_spe_header(file)
   xaxis <- .wl_fix_unit_name(xaxis)
 
   # Check if we should use display units specified in the SPE file
@@ -19,15 +19,16 @@ spe_showcalpoints <- function(filename, xaxis = "file", acc2avg = F, cts_sec = F
 
   # Open file, make plot and mark position of all peaks stored inside the file
   # in the x-calibration structure
-  spc <- read_spe(filename, xaxis, acc2avg, cts_sec)
+  spc <- read_spe(file, xaxis, acc2avg, cts_sec)
   rng <- max(spc) - min(spc)
   ylims <- c(min(spc), max(spc) + 0.3 * rng)
+
   if (dim(spc@data$spc)[1] > 1) {
     plot(spc, plot.args = list(ylim = (ylims)), "spcprctl5")
   } else {
     plot(spc, plot.args = list(ylim = (ylims)))
   }
-  title(basename(filename))
+  title(basename(file))
 
 
   if (hdr$xCalPointCount == 0) {

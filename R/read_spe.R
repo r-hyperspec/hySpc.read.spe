@@ -14,7 +14,7 @@
 #' the y-calibration data structure is not extracted from the file
 #' since it is not saved there by WinSpec and is always empty.
 #'
-#' @param filename Name of the SPE file to read data from.
+#' @param file Name of the SPE file to read data from.
 #'
 #' @param xaxis Units of x-axis, e.g., `"file"`, `"px"`, `"nm"`, `"energy"`,
 #'        `"raman"`, `...`
@@ -47,7 +47,7 @@
 #' @importFrom graphics title
 #' @importFrom methods new
 
-read_spe <- function(filename, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
+read_spe <- function(file, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
                      keys_hdr2data = c(
                        "exposure_sec",
                        "LaserWavelen",
@@ -55,7 +55,7 @@ read_spe <- function(filename, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
                        "numFrames",
                        "darkSubtracted"
                      )) {
-  hdr <- read_spe_header(filename)
+  hdr <- read_spe_header(file)
 
   # This is the size of one data point in bytes.
   # WinSpec uses 2 bytes or 4 bytes only.
@@ -63,7 +63,7 @@ read_spe <- function(filename, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
   data_chunk_size <- hdr$xdim * hdr$ydim * hdr$numFrames * data_size
 
   # Read the part of file that contains actual experimental data
-  raw_data <- readBin(filename, "raw", data_chunk_size + 4100, 1)[-(1:4100)]
+  raw_data <- readBin(file, "raw", data_chunk_size + 4100, 1)[-(1:4100)]
 
   # Convert raw spectral data according to the datatype defined in the header
   spc <- switch(hdr$datatype + 1,
@@ -96,7 +96,7 @@ read_spe <- function(filename, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
 
   # For SPE 3.0 and above we need to read the XML header
   if (hdr$fileFormatVer >= 3.0) {
-    spc@data$xml <- read_spe_xml(filename)
+    spc@data$xml <- read_spe_xml(file)
   }
 
   # Check if we should use display units specified in the SPE file
@@ -107,7 +107,7 @@ read_spe <- function(filename, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
   # Create a new x-axis, if required
   xaxis <- .wl_fix_unit_name(xaxis)
   if (xaxis == "px") {
-    return(.spc_io_postprocess_optional(spc, filename))
+    return(.spc_io_postprocess_optional(spc, file))
   }
 
 
@@ -152,7 +152,7 @@ read_spe <- function(filename, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
   }
 
   ## consistent file import behaviour across import functions
-  .spc_io_postprocess_optional(spc, filename)
+  .spc_io_postprocess_optional(spc, file)
 }
 
 #' Read XML footer from SPE file format version 3.0
@@ -170,13 +170,14 @@ read_spe <- function(filename, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
 #'
 #' This function relies on R package xml2 to work correctly
 #'
-#' @param filename - SPE filename
+#' @param file Path to SPE file.
 #'
-#' @return xml data from the file converted to R list
+#' @return xml data from the file converted to R list.
+#'
 #' @importFrom xml2 as_list read_xml
 #'
-read_spe_xml <- function(filename) {
-  as_list(read_xml(read_spe_xml_string(filename)))
+read_spe_xml <- function(file) {
+  as_list(read_xml(read_spe_xml_string(file)))
 }
 
 
@@ -187,14 +188,14 @@ read_spe_xml <- function(filename) {
 #' to check that the file format version is 3.0 or above, and to find and
 #' read the correct part of this file.
 #'
-#' @param filename - SPE filename
+#' @param file Path to SPE file.
 #'
 #' @return string containing XML footer
 #'
 #' @noRd
 
-read_spe_xml_string <- function(filename) {
-  hdr <- read_spe_header(filename)
+read_spe_xml_string <- function(file) {
+  hdr <- read_spe_header(file)
 
   if (hdr$fileFormatVer < 3.0) {
     stop(paste(
@@ -209,7 +210,7 @@ read_spe_xml_string <- function(filename) {
 
   # Read the part of file that contains actual experimental data
   i_data <- -(1:(4100 + data_chunk_size))
-  raw_bytes <- readBin(filename, "raw", file.info(filename)$size, 1)[i_data]
+  raw_bytes <- readBin(file, "raw", file.info(file)$size, 1)[i_data]
   readChar(raw_bytes, length(raw_bytes))
 }
 
@@ -219,11 +220,11 @@ read_spe_xml_string <- function(filename) {
 #' @return hdr list with `key=value` pairs
 #'
 #' @noRd
-read_spe_header <- function(filename) {
+read_spe_header <- function(file) {
   # Read the 4100-byte long binary header from the SPE file and parse it
 
   # Load the header
-  raw_data <- readBin(filename, "raw", 4100, 1)
+  raw_data <- readBin(file, "raw", 4100, 1)
 
   # Extract some items from the 4100 bytes-long file header
   hdr <- list(
@@ -294,7 +295,7 @@ read_spe_header <- function(filename) {
 #' @import testthat
 hySpc.testthat::test(read_spe) <- function() {
 
-  # Filenames
+  # File names
 
   # polystyrene <- "fileio\\spe\\polystyrene.SPE"
   blut1 <- system.file("extdata", "blut1.SPE", package = "hySpc.read.spe")
