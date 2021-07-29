@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Import WinSpec SPE File — read_spe • hySpc.read.spe</title>
+<title>Import WinSpec SPE file — read_spe • hySpc.read.spe</title>
 
 
 <!-- jquery -->
@@ -41,9 +41,9 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Import WinSpec SPE File — read_spe" />
+<meta property="og:title" content="Import WinSpec SPE file — read_spe" />
 <meta property="og:description" content="Import function for WinSpec SPE files (file version up to 3.0).
-The calibration data (polynome and calibration data pairs) for x-axis
+The calibration data (polynomial and calibration data pairs) for x-axis
 are automatically read and applied to the spectra. Note that
 the y-calibration data structure is not extracted from the file
 since it is not saved there by WinSpec and is always empty." />
@@ -120,14 +120,14 @@ since it is not saved there by WinSpec and is always empty." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Import WinSpec SPE File</h1>
+    <h1>Import WinSpec SPE file</h1>
     <small class="dont-index">Source: <a href='https://github.com/r-hyperspec/hySpc.read.spe/blob/master/R/read_spe.R'><code>R/read_spe.R</code></a>, <a href='https://github.com/r-hyperspec/hySpc.read.spe/blob/master/R/spe_showcalpoints.R'><code>R/spe_showcalpoints.R</code></a></small>
     <div class="hidden name"><code>read_spe.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Import function for WinSpec SPE files (file version up to 3.0).
-The calibration data (polynome and calibration data pairs) for x-axis
+The calibration data (polynomial and calibration data pairs) for x-axis
 are automatically read and applied to the spectra. Note that
 the y-calibration data structure is not extracted from the file
 since it is not saved there by WinSpec and is always empty.</p>
@@ -136,8 +136,8 @@ since it is not saved there by WinSpec and is always empty.</p>
     <pre class="usage"><span class='fu'>read_spe</span><span class='op'>(</span>
   <span class='va'>filename</span>,
   xaxis <span class='op'>=</span> <span class='st'>"file"</span>,
-  acc2avg <span class='op'>=</span> <span class='cn'>F</span>,
-  cts_sec <span class='op'>=</span> <span class='cn'>F</span>,
+  acc2avg <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cts_sec <span class='op'>=</span> <span class='cn'>FALSE</span>,
   keys_hdr2data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"exposure_sec"</span>, <span class='st'>"LaserWavelen"</span>, <span class='st'>"accumulCount"</span>, <span class='st'>"numFrames"</span>,
     <span class='st'>"darkSubtracted"</span><span class='op'>)</span>
 <span class='op'>)</span>
@@ -149,39 +149,40 @@ since it is not saved there by WinSpec and is always empty.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>filename</th>
-      <td><p>Name of the SPE file to read data from</p></td>
+      <td><p>Name of the SPE file to read data from.</p></td>
     </tr>
     <tr>
       <th>xaxis</th>
-      <td><p>Units of x-axis, e.g., <em>"file"</em>, <em>"px"</em>, <em>"nm"</em>, <em>"energy"</em>,
-<em>"raman"</em>, <em>...</em>
-<code>read_spe</code> function automatically checks if the x-calibration data are
-available and uses them (if possible) to reconstruct the xaxis
+      <td><p>Units of x-axis, e.g., <code>"file"</code>, <code>"px"</code>, <code>"nm"</code>, <code>"energy"</code>,
+<code>"raman"</code>, <code>...</code></p>
+<p>Function <code>read_spe()</code> automatically checks if the x-calibration data are
+available and uses them (if possible) to reconstruct the <code>xaxis</code>
 in the selected units.</p></td>
     </tr>
     <tr>
       <th>acc2avg</th>
-      <td><p>whether to divide the actual data set by the number of
+      <td><p>Whether to divide the actual data set by the number of
 accumulations, thus transforming <em>accumulated</em> spectra to
 <em>averaged</em> spectra. WinSpec does not do this automatically, so the
-spectral intensity is always proportional to the number of accumulations.
+spectral intensity is always proportional to the number of
+accumulations.
 The flag <code>@data$averaged</code> is automatically set to <code>TRUE</code>.</p></td>
     </tr>
     <tr>
       <th>cts_sec</th>
-      <td><p>whether to divide the actual data set by the exposure time,
+      <td><p>Whether to divide the actual data set by the exposure time,
 thus going to count per second unit.</p></td>
     </tr>
     <tr>
       <th>keys_hdr2data</th>
       <td><p>Which metadata from the file header should be saved to
-the <code>Data</code> slot of a newly created hyperSpec object</p></td>
+the <code>@data</code> slot of a newly created <code>hyperSpec</code> object</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>hyperSpec object</p>
+    <p><code>hyperSpec</code> object.</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
