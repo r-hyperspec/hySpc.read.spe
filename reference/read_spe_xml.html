@@ -143,22 +143,20 @@ The file format specification is available at Princeton Instruments FTP
 server under name 'SPE 3.0 File Format Specification'.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_spe_xml</span><span class='op'>(</span><span class='va'>filename</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>read_spe_xml</span><span class='op'>(</span><span class='va'>file</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>filename</th>
-      <td><ul>
-<li><p>SPE filename</p></li>
-</ul></td>
+      <th>file</th>
+      <td><p>Path to SPE file.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>xml data from the file converted to R list</p>
+    <p>xml data from the file converted to R list.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function relies on R package xml2 to work correctly</p>
