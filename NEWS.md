@@ -8,7 +8,7 @@ Sang and the team carried out a significant overhaul of `hyperSpec` which led to
 
 * Moved functions from **hyperSpec** to **hySpc.read.spe**:
   - `hyperSpec::read.spe()` -> `hySpc.read.spe::read_spe()`
-  - `hyperSpec::spe.showcalpoints()` -> `hySpc.read.spe::spe_show_calibration_points()`
+  - `hyperSpec::spe.showcalpoints()` -> `hySpc.read.spe::spe_plot_calibration_points()`
   - `hyperSpec::.read.spe.xml()` -> `hySpc.read.spe::read_spe_xml()`
   - `hyperSpec::.read.spe.xml_string()` -> `hySpc.read.spe::read_spe_xml_string()`
   - `hyperSpec::.read.spe.header()` -> `hySpc.read.spe::read_spe_header()`

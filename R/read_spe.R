@@ -8,11 +8,11 @@
 
 # Function -------------------------------------------------------------------
 
-#' Import WinSpec SPE file
+#' Import spectra from WinSpec SPE file
 #'
 #' Import function for WinSpec SPE files (file version up to 3.0).
 #' The calibration data (polynomial and calibration data pairs) for x-axis
-#' are automatically read and applied to the spectra. Note that
+#' are automatically read and applied to the spectra. **Note** that
 #' the y-calibration data structure is not extracted from the file
 #' since it is not saved there by WinSpec and is always empty.
 #'
@@ -155,7 +155,7 @@ read_spe <- function(file, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
     spc@label$spc <- expression("counts / s")
   }
 
-  ## consistent file import behaviour across import functions
+  ## consistent file import behavior across import functions
   .spc_io_postprocess_optional(spc, file)
 }
 
@@ -175,11 +175,11 @@ read_spe <- function(file, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
 #' The file format specification is available at Princeton Instruments FTP
 #' server under name 'SPE 3.0 File Format Specification'.
 #'
-#' This function relies on R package xml2 to work correctly
+#' This function relies on R package \pkg{xml2} to work correctly.
 #'
 #' @param file Path to SPE file.
 #'
-#' @return xml data from the file converted to R list.
+#' @return XML data from the file converted to R list.
 #'
 #' @importFrom xml2 as_list read_xml
 #'

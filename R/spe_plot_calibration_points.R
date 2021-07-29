@@ -6,8 +6,8 @@
 #' @inheritParams read_spe
 #'
 #' @export
-#'
-spe_show_calibration_points <- function(file,
+
+spe_plot_calibration_points <- function(file,
                                         xaxis = "file",
                                         acc2avg = FALSE,
                                         cts_sec = FALSE) {
