@@ -36,7 +36,4 @@ BugReports: https://github.com/r-hyperspec/hySpc.read.spe/issues
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
-Collate:
-    'package.R'
-    'read_spe.R'
-    'spe_show_calibration_points.R'
+
