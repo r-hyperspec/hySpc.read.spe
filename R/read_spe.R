@@ -80,7 +80,8 @@ read_spe <- function(filename, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
     frame = rep(seq_len(hdr$numFrames), each = hdr$ydim)
   )
 
-  # Extract selected items from the header. They will go to a new hyperSpec object
+  # Extract selected items from the header.
+  # They will go to a new hyperSpec object
   hdr2data <- hdr[keys_hdr2data]
   if (length(hdr2data > 0)) {
     extra_data <- cbind(extra_data, hdr2data)
@@ -207,7 +208,8 @@ read_spe_xml_string <- function(filename) {
   data_chunk_size <- hdr$xdim * hdr$ydim * hdr$numFrames * data_size
 
   # Read the part of file that contains actual experimental data
-  raw_bytes <- readBin(filename, "raw", file.info(filename)$size, 1)[-(1:(4100 + data_chunk_size))]
+  i_data <- -(1:(4100 + data_chunk_size))
+  raw_bytes <- readBin(filename, "raw", file.info(filename)$size, 1)[i_data]
   readChar(raw_bytes, length(raw_bytes))
 }
 
