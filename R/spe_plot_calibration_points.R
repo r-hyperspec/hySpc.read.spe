@@ -1,3 +1,5 @@
+# Function -------------------------------------------------------------------
+
 #' Plot spectra with calibration points in WinSpec SPE file
 #'
 #' Plot the WinSpec SPE file (version 2.5) and show the calibration points
@@ -64,4 +66,46 @@ spe_plot_calibration_points <- function(file,
     x      = hdr$xCalValues,
     ref_wl = hdr$LaserWavelen
   ))
+}
+
+# Unit tests -----------------------------------------------------------------
+
+hySpc.testthat::test(spe_plot_calibration_points) <- function() {
+
+  context("spe_plot_calibration_points")
+
+  # File names ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  #
+  f_blut1 <- system.file("extdata", "blut1.SPE", package = "hySpc.read.spe")
+  f_spe3 <- system.file("extdata", "spe_format_3.0.SPE", package = "hySpc.read.spe")
+
+  # Visual tests ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+  test_that("result with callibration data", {
+    vdiffr::expect_doppelganger(
+      "calibration-data-present--default",
+      spe_plot_calibration_points(f_blut1)
+    )
+
+    vdiffr::expect_doppelganger(
+      "calibration-data-present--xaxis-nm",
+      spe_plot_calibration_points(f_blut1, xaxis = "nm")
+    )
+  })
+
+
+  test_that("no callibration data", {
+    vdiffr::expect_doppelganger(
+      "calibration-points-missing--default",
+      expect_warning(
+        expect_warning(
+          spe_plot_calibration_points(f_spe3),
+          "No calibration data!"  # Warning 2
+        ),
+        "Cannot show calibration data in pixels" # Warning 1
+      )
+    )
+  })
+
 }
