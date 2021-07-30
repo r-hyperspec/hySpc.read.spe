@@ -173,7 +173,7 @@ read_spe <- function(file, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
     )
   if (acc2avg) {
     spc <- spc / hdr$accumulCount
-    spc@data$averaged <- T
+    spc@data$averaged <- TRUE
   }
   if (cts_sec) {
     spc <- spc / hdr$exposure_sec
@@ -329,6 +329,8 @@ read_spe_header <- function(file) {
 
 hySpc.testthat::test(read_spe) <- function() {
 
+  context("read_spe")
+
   # File names
 
   # polystyrene <- "fileio\\spe\\polystyrene.SPE"
@@ -346,6 +348,18 @@ hySpc.testthat::test(read_spe) <- function() {
     expect_equal(spc$spc[[5, 77]], 1484)
     expect_equal(spc$spc[[2, 811]], 606)
     expect_equal(spc@wavelength[621], 2618.027)
+  })
+
+  test_that("read_spe() xaxis values", {
+    fname <- blut1
+
+    expect_silent(spc_default <- read_spe(fname, xaxis = "file"))
+    expect_silent(spc_px <- read_spe(fname, xaxis = "px"))
+    expect_silent(spc_nm <- read_spe(fname, xaxis = "nm"))
+
+    expect_match(as.character(labels(spc_default)$.wavelength), "Raman")
+    expect_match(as.character(labels(spc_nm)$.wavelength), "nm")
+    expect_match(as.character(labels(spc_px)$.wavelength), "pixel")
   })
 
 

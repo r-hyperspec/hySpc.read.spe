@@ -28,7 +28,8 @@ Imports:
 Suggests:
     knitr,
     covr,
-    rmarkdown
+    rmarkdown,
+    vdiffr (>= 1.0.0)
 URL:
     https://r-hyperspec.github.io/hySpc.read.spe,
     https://github.com/r-hyperspec/hySpc.read.spe
