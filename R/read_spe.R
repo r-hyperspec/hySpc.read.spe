@@ -21,12 +21,13 @@
 #'
 #' @param file (charter): Name of the SPE file to read data from.
 #'
-#' @param xaxis (charter): Units of x-axis, e.g., `"file"`, `"px"`, `"nm"`,
-#'        `"energy"`, `"raman"`, `...`
+#' @param xaxis (charter|`NULL`): Units of x-axis, e.g., `"px"`, `"nm"`,
+#'        `"energy"`, `"raman"`, `...`. `NULL` means default units defined in
+#'        a file.
 #'
 #'    Function [read_spe()] automatically checks if the x-calibration data are
-#' available and uses them (if possible) to reconstruct the `xaxis` in the
-#' selected units.
+#' available and uses them (if possible) to reconstruct the *wavelength* axis
+#' in the selected units.
 #'
 #' @param acc2avg (logical): Whether to divide the actual data set by
 #'        the number of accumulations, thus transforming *accumulated*
@@ -41,6 +42,7 @@
 #' @param keys_hdr2data (charter): Which metadata from the file header
 #'        should be saved to the `@data` slot of a newly created
 #'        `hyperSpec` object.
+#'
 #'
 #' @return [hyperSpec][hyperSpec::hyperSpec-class()] object.
 #'
@@ -77,7 +79,7 @@
 #'
 #' plot(spc_spe3)
 #'
-read_spe <- function(file, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
+read_spe <- function(file, xaxis = NULL, acc2avg = FALSE, cts_sec = FALSE,
                      keys_hdr2data = c(
                        "exposure_sec",
                        "LaserWavelen",
@@ -130,7 +132,7 @@ read_spe <- function(file, xaxis = "file", acc2avg = FALSE, cts_sec = FALSE,
   }
 
   # Check if we should use display units specified in the SPE file
-  if (xaxis == "file") {
+  if (is.null(xaxis)) {
     xaxis <- .wl_fix_unit_name(hdr$xCalDisplayUnit)
   }
 
@@ -354,7 +356,7 @@ hySpc.testthat::test(read_spe) <- function() {
   test_that("read_spe() xaxis values", {
     fname <- blut1
 
-    expect_silent(spc_default <- read_spe(fname, xaxis = "file"))
+    expect_silent(spc_default <- read_spe(fname, xaxis = NULL))
     expect_silent(spc_px <- read_spe(fname, xaxis = "px"))
     expect_silent(spc_nm <- read_spe(fname, xaxis = "nm"))
 
