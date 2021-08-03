@@ -26,26 +26,26 @@
 #' spe_plot_calibration_points(spe3)
 #'
 spe_plot_calibration_points <- function(file,
-                                        xaxis = NULL,
+                                        wl_units = NULL,
                                         acc2avg = FALSE,
                                         cts_sec = FALSE) {
   hdr <- read_spe_header(file)
 
   # Check if we should use display units specified in the SPE file
-  if (is.null(xaxis)) {
-    xaxis <- .wl_fix_unit_name(hdr$xCalDisplayUnit)
+  if (is.null(wl_units)) {
+    wl_units <- .wl_fix_unit_name(hdr$xCalDisplayUnit)
   }
 
-  xaxis <- .wl_fix_unit_name(xaxis)
+  wl_units <- .wl_fix_unit_name(wl_units)
 
-  if (xaxis == "px") {
-    xaxis <- hdr$xCalDisplayUnit
+  if (wl_units == "px") {
+    wl_units <- hdr$xCalDisplayUnit
     warning("Cannot show calibration data in pixels")
   }
 
   # Open file, make plot and mark position of all peaks stored inside the file
   # in the x-calibration structure
-  spc <- read_spe(file, xaxis, acc2avg, cts_sec)
+  spc <- read_spe(file, wl_units, acc2avg, cts_sec)
   rng <- max(spc) - min(spc)
   ylims <- c(min(spc), max(spc) + 0.3 * rng)
 
@@ -64,7 +64,7 @@ spe_plot_calibration_points <- function(file,
 
   markpeak(spc, wl_convert_units(
     from   = hdr$xCalInputUnit,
-    to     = .wl_fix_unit_name(xaxis),
+    to     = .wl_fix_unit_name(wl_units),
     x      = hdr$xCalValues,
     ref_wl = hdr$LaserWavelen
   ))
@@ -91,8 +91,8 @@ hySpc.testthat::test(spe_plot_calibration_points) <- function() {
     )
 
     vdiffr::expect_doppelganger(
-      "calibration-data-present--xaxis-nm",
-      spe_plot_calibration_points(f_blut1, xaxis = "nm")
+      "calibration-data-present--wl_units-nm",
+      spe_plot_calibration_points(f_blut1, wl_units = "nm")
     )
   })
 
