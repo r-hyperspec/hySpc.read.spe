@@ -21,7 +21,7 @@
 #'
 #' @param file (character): Name of the SPE file to read data from.
 #'
-#' @param xaxis (character|`NULL`): Units of x-axis, e.g., `"px"`, `"nm"`,
+#' @param wl_units (character|`NULL`): Units of x-axis, e.g., `"px"`, `"nm"`,
 #'        `"energy"`, `"raman"`, `...`. `NULL` means default units defined in
 #'        a file.
 #'
@@ -79,7 +79,7 @@
 #'
 #' plot(spc_spe3)
 #'
-read_spe <- function(file, xaxis = NULL, acc2avg = FALSE, cts_sec = FALSE,
+read_spe <- function(file, wl_units = NULL, acc2avg = FALSE, cts_sec = FALSE,
                      keys_hdr2data = c(
                        "exposure_sec",
                        "LaserWavelen",
@@ -132,13 +132,13 @@ read_spe <- function(file, xaxis = NULL, acc2avg = FALSE, cts_sec = FALSE,
   }
 
   # Check if we should use display units specified in the SPE file
-  if (is.null(xaxis)) {
-    xaxis <- .wl_fix_unit_name(hdr$xCalDisplayUnit)
+  if (is.null(wl_units)) {
+    wl_units <- .wl_fix_unit_name(hdr$xCalDisplayUnit)
   }
 
   # Create a new x-axis, if required
-  xaxis <- .wl_fix_unit_name(xaxis)
-  if (xaxis == "px") {
+  wl_units <- .wl_fix_unit_name(wl_units)
+  if (wl_units == "px") {
     return(.spc_io_postprocess_optional(spc, file))
   }
 
@@ -161,13 +161,13 @@ read_spe <- function(file, xaxis = NULL, acc2avg = FALSE, cts_sec = FALSE,
   # Perform conversion
   spc@wavelength <- wl_convert_units(
     from   = .wl_fix_unit_name(hdr$xCalPolyUnit),
-    to     = xaxis,
+    to     = wl_units,
     x      = as.numeric(vM %*% coeffs),
     ref_wl = hdr$LaserWavelen
   )
 
   spc@label$.wavelength <-
-    switch(xaxis,
+    switch(wl_units,
       nm    = expression("Wavelength, nm"),
       invcm = expression(tilde(nu) / cm^-1),
       ev    = expression("Energy / eV"),
@@ -353,12 +353,12 @@ hySpc.testthat::test(read_spe) <- function() {
     expect_equal(spc@wavelength[621], 2618.027)
   })
 
-  test_that("read_spe() xaxis values", {
+  test_that("read_spe() wl_units values", {
     fname <- blut1
 
-    expect_silent(spc_default <- read_spe(fname, xaxis = NULL))
-    expect_silent(spc_px <- read_spe(fname, xaxis = "px"))
-    expect_silent(spc_nm <- read_spe(fname, xaxis = "nm"))
+    expect_silent(spc_default <- read_spe(fname, wl_units = NULL))
+    expect_silent(spc_px <- read_spe(fname, wl_units = "px"))
+    expect_silent(spc_nm <- read_spe(fname, wl_units = "nm"))
 
     expect_match(as.character(labels(spc_default)$.wavelength), "Raman")
     expect_match(as.character(labels(spc_nm)$.wavelength), "nm")
