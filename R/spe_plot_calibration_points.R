@@ -24,28 +24,33 @@
 #'   package = "hySpc.read.spe"
 #' )
 #' spe_plot_calibration_points(spe3)
-#'
 spe_plot_calibration_points <- function(file,
-                                        xaxis = NULL,
+                                        wl_units = NULL,
                                         acc2avg = FALSE,
-                                        cts_sec = FALSE) {
+                                        cts_sec = FALSE,
+                                        xaxis = "DEPRECATED") {
+  if (is.null(xaxis) || (xaxis != "DEPRECATED")) {
+    warning("Argument 'xaxis' is deprecated. Use 'wl_units' instead. ")
+    wl_units <- xaxis
+  }
+
   hdr <- read_spe_header(file)
 
   # Check if we should use display units specified in the SPE file
-  if (is.null(xaxis)) {
-    xaxis <- .wl_fix_unit_name(hdr$xCalDisplayUnit)
+  if (is.null(wl_units)) {
+    wl_units <- .wl_fix_unit_name(hdr$xCalDisplayUnit)
   }
 
-  xaxis <- .wl_fix_unit_name(xaxis)
+  wl_units <- .wl_fix_unit_name(wl_units)
 
-  if (xaxis == "px") {
-    xaxis <- hdr$xCalDisplayUnit
+  if (wl_units == "px") {
+    wl_units <- hdr$xCalDisplayUnit
     warning("Cannot show calibration data in pixels")
   }
 
   # Open file, make plot and mark position of all peaks stored inside the file
   # in the x-calibration structure
-  spc <- read_spe(file, xaxis, acc2avg, cts_sec)
+  spc <- read_spe(file, wl_units, acc2avg, cts_sec)
   rng <- max(spc) - min(spc)
   ylims <- c(min(spc), max(spc) + 0.3 * rng)
 
@@ -64,7 +69,7 @@ spe_plot_calibration_points <- function(file,
 
   markpeak(spc, wl_convert_units(
     from   = hdr$xCalInputUnit,
-    to     = .wl_fix_unit_name(xaxis),
+    to     = .wl_fix_unit_name(wl_units),
     x      = hdr$xCalValues,
     ref_wl = hdr$LaserWavelen
   ))
@@ -73,7 +78,6 @@ spe_plot_calibration_points <- function(file,
 # Unit tests -----------------------------------------------------------------
 
 hySpc.testthat::test(spe_plot_calibration_points) <- function() {
-
   context("spe_plot_calibration_points")
 
   # File names ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,7 +87,6 @@ hySpc.testthat::test(spe_plot_calibration_points) <- function() {
 
   # Visual tests ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
   test_that("result with callibration data", {
     vdiffr::expect_doppelganger(
       "calibration-data-present--default",
@@ -91,8 +94,8 @@ hySpc.testthat::test(spe_plot_calibration_points) <- function() {
     )
 
     vdiffr::expect_doppelganger(
-      "calibration-data-present--xaxis-nm",
-      spe_plot_calibration_points(f_blut1, xaxis = "nm")
+      "calibration-data-present--wl_units-nm",
+      spe_plot_calibration_points(f_blut1, wl_units = "nm")
     )
   })
 
@@ -103,11 +106,20 @@ hySpc.testthat::test(spe_plot_calibration_points) <- function() {
       expect_warning(
         expect_warning(
           spe_plot_calibration_points(f_spe3),
-          "No calibration data!"  # Warning 2
+          "No calibration data!" # Warning 2
         ),
         "Cannot show calibration data in pixels" # Warning 1
       )
     )
   })
 
+  test_that("spe_plot_calibration_points(): arg. 'xaxis' is deprecated. ", {
+    expect_warning(
+      vdiffr::expect_doppelganger(
+        "calibration-data-present--default", # The same name as above
+        spe_plot_calibration_points(f_blut1, xaxis = NULL)
+      ),
+      "deprecated"
+    )
+  })
 }
