@@ -126,7 +126,7 @@ stored inside of it (x-axis calibration).</p>
 
     <pre class="usage"><span class='fu'>spe_plot_calibration_points</span><span class='op'>(</span>
   <span class='va'>file</span>,
-  xaxis <span class='op'>=</span> <span class='st'>"file"</span>,
+  xaxis <span class='op'>=</span> <span class='cn'>NULL</span>,
   acc2avg <span class='op'>=</span> <span class='cn'>FALSE</span>,
   cts_sec <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
@@ -140,11 +140,12 @@ stored inside of it (x-axis calibration).</p>
     </tr>
     <tr>
       <th>xaxis</th>
-      <td><p>(charter): Units of x-axis, e.g., <code>"file"</code>, <code>"px"</code>, <code>"nm"</code>, <code>"energy"</code>,
-<code>"raman"</code>, <code>...</code></p>
+      <td><p>(charter|<code>NULL</code>): Units of x-axis, e.g., <code>"px"</code>, <code>"nm"</code>,
+<code>"energy"</code>, <code>"raman"</code>, <code>...</code>. <code>NULL</code> means default units defined in
+a file.</p>
 <p>Function <code><a href='read_spe.html'>read_spe()</a></code> automatically checks if the x-calibration data are
-available and uses them (if possible) to reconstruct the <code>xaxis</code> in the
-selected units.</p></td>
+available and uses them (if possible) to reconstruct the <em>wavelength</em> axis
+in the selected units.</p></td>
     </tr>
     <tr>
       <th>acc2avg</th>
