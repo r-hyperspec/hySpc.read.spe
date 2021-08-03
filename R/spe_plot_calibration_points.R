@@ -24,11 +24,16 @@
 #'   package = "hySpc.read.spe"
 #' )
 #' spe_plot_calibration_points(spe3)
-#'
 spe_plot_calibration_points <- function(file,
                                         wl_units = NULL,
                                         acc2avg = FALSE,
-                                        cts_sec = FALSE) {
+                                        cts_sec = FALSE,
+                                        xaxis = "DEPRECATED") {
+  if (is.null(xaxis) || (xaxis != "DEPRECATED")) {
+    warning("Argument 'xaxis' is deprecated. Use 'wl_units' instead. ")
+    wl_units <- xaxis
+  }
+
   hdr <- read_spe_header(file)
 
   # Check if we should use display units specified in the SPE file
@@ -73,7 +78,6 @@ spe_plot_calibration_points <- function(file,
 # Unit tests -----------------------------------------------------------------
 
 hySpc.testthat::test(spe_plot_calibration_points) <- function() {
-
   context("spe_plot_calibration_points")
 
   # File names ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,7 +86,6 @@ hySpc.testthat::test(spe_plot_calibration_points) <- function() {
   f_spe3 <- system.file("extdata", "spe_format_3.0.SPE", package = "hySpc.read.spe")
 
   # Visual tests ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
   test_that("result with callibration data", {
     vdiffr::expect_doppelganger(
@@ -103,11 +106,20 @@ hySpc.testthat::test(spe_plot_calibration_points) <- function() {
       expect_warning(
         expect_warning(
           spe_plot_calibration_points(f_spe3),
-          "No calibration data!"  # Warning 2
+          "No calibration data!" # Warning 2
         ),
         "Cannot show calibration data in pixels" # Warning 1
       )
     )
   })
 
+  test_that("spe_plot_calibration_points(): arg. 'xaxis' is deprecated. ", {
+    expect_warning(
+      vdiffr::expect_doppelganger(
+        "calibration-data-present--default", # The same name as above
+        spe_plot_calibration_points(f_blut1, xaxis = NULL)
+      ),
+      "deprecated"
+    )
+  })
 }
