@@ -43,6 +43,8 @@
 #'        should be saved to the `@data` slot of a newly created
 #'        `hyperSpec` object.
 #'
+#' @param xaxis (DEPRECATED): use `wl_units` instead.
+#'
 #'
 #' @return [hyperSpec][hyperSpec::hyperSpec-class()] object.
 #'
@@ -86,7 +88,15 @@ read_spe <- function(file, wl_units = NULL, acc2avg = FALSE, cts_sec = FALSE,
                        "accumulCount",
                        "numFrames",
                        "darkSubtracted"
-                     )) {
+                     ),
+                     xaxis = "DEPRECATED") {
+
+  if (is.null(xaxis) || (xaxis != "DEPRECATED")) {
+    warning("Argument 'xaxis' is deprecated. Use 'wl_units' instead. ")
+    wl_units <- xaxis
+  }
+
+
   hdr <- read_spe_header(file)
 
   # This is the size of one data point in bytes.
@@ -363,6 +373,15 @@ hySpc.testthat::test(read_spe) <- function() {
     expect_match(as.character(labels(spc_default)$.wavelength), "Raman")
     expect_match(as.character(labels(spc_nm)$.wavelength), "nm")
     expect_match(as.character(labels(spc_px)$.wavelength), "pixel")
+  })
+
+  test_that("read_spe(): arg. 'xaxis' is deprecated. ", {
+    fname <- blut1
+
+    expect_warning(spc_default_d <- read_spe(fname, xaxis = NULL), "deprecated")
+    expect_silent(spc_default_ok <- read_spe(fname, wl_units = NULL))
+
+    expect_equal(spc_default_d, spc_default_ok)
   })
 
 
