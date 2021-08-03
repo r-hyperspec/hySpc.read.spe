@@ -26,16 +26,18 @@
 #' spe_plot_calibration_points(spe3)
 #'
 spe_plot_calibration_points <- function(file,
-                                        xaxis = "file",
+                                        xaxis = NULL,
                                         acc2avg = FALSE,
                                         cts_sec = FALSE) {
   hdr <- read_spe_header(file)
-  xaxis <- .wl_fix_unit_name(xaxis)
 
   # Check if we should use display units specified in the SPE file
-  if (xaxis == "file") {
+  if (is.null(xaxis)) {
     xaxis <- .wl_fix_unit_name(hdr$xCalDisplayUnit)
   }
+
+  xaxis <- .wl_fix_unit_name(xaxis)
+
   if (xaxis == "px") {
     xaxis <- hdr$xCalDisplayUnit
     warning("Cannot show calibration data in pixels")
