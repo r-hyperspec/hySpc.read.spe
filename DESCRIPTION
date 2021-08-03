@@ -23,12 +23,9 @@ Imports:
     hySpc.testthat,
     testthat,
     methods,
-    xml2,
-    bookdown
+    xml2
 Suggests:
-    knitr,
     covr,
-    rmarkdown,
     vdiffr (>= 1.0.0)
 URL:
     https://r-hyperspec.github.io/hySpc.read.spe,
