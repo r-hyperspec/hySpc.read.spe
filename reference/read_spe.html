@@ -132,11 +132,12 @@ since it is not saved there by WinSpec and is always empty.</p>
 
     <pre class="usage"><span class='fu'>read_spe</span><span class='op'>(</span>
   <span class='va'>file</span>,
-  xaxis <span class='op'>=</span> <span class='cn'>NULL</span>,
+  wl_units <span class='op'>=</span> <span class='cn'>NULL</span>,
   acc2avg <span class='op'>=</span> <span class='cn'>FALSE</span>,
   cts_sec <span class='op'>=</span> <span class='cn'>FALSE</span>,
   keys_hdr2data <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"exposure_sec"</span>, <span class='st'>"LaserWavelen"</span>, <span class='st'>"accumulCount"</span>, <span class='st'>"numFrames"</span>,
-    <span class='st'>"darkSubtracted"</span><span class='op'>)</span>
+    <span class='st'>"darkSubtracted"</span><span class='op'>)</span>,
+  xaxis <span class='op'>=</span> <span class='st'>"DEPRECATED"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -144,11 +145,11 @@ since it is not saved there by WinSpec and is always empty.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>file</th>
-      <td><p>(charter): Name of the SPE file to read data from.</p></td>
+      <td><p>(character): Name of the SPE file to read data from.</p></td>
     </tr>
     <tr>
-      <th>xaxis</th>
-      <td><p>(charter|<code>NULL</code>): Units of x-axis, e.g., <code>"px"</code>, <code>"nm"</code>,
+      <th>wl_units</th>
+      <td><p>(character|<code>NULL</code>): Units of x-axis, e.g., <code>"px"</code>, <code>"nm"</code>,
 <code>"energy"</code>, <code>"raman"</code>, <code>...</code>. <code>NULL</code> means default units defined in
 a file.</p>
 <p>Function <code>read_spe()</code> automatically checks if the x-calibration data are
@@ -171,9 +172,13 @@ exposure time,  thus going to count per second unit.</p></td>
     </tr>
     <tr>
       <th>keys_hdr2data</th>
-      <td><p>(charter): Which metadata from the file header
+      <td><p>(character): Which metadata from the file header
 should be saved to the <code>@data</code> slot of a newly created
 <code>hyperSpec</code> object.</p></td>
+    </tr>
+    <tr>
+      <th>xaxis</th>
+      <td><p>(DEPRECATED): use <code>wl_units</code> instead.</p></td>
     </tr>
     </table>
 
