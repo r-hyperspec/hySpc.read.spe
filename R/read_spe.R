@@ -19,9 +19,9 @@
 #' @rdname read_spe
 #'
 #'
-#' @param file (charter): Name of the SPE file to read data from.
+#' @param file (character): Name of the SPE file to read data from.
 #'
-#' @param xaxis (charter|`NULL`): Units of x-axis, e.g., `"px"`, `"nm"`,
+#' @param xaxis (character|`NULL`): Units of x-axis, e.g., `"px"`, `"nm"`,
 #'        `"energy"`, `"raman"`, `...`. `NULL` means default units defined in
 #'        a file.
 #'
@@ -39,7 +39,7 @@
 #' @param cts_sec (logical): Whether to divide the actual data set by the
 #'        exposure time,  thus going to count per second unit.
 #'
-#' @param keys_hdr2data (charter): Which metadata from the file header
+#' @param keys_hdr2data (character): Which metadata from the file header
 #'        should be saved to the `@data` slot of a newly created
 #'        `hyperSpec` object.
 #'
