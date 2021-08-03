@@ -19,27 +19,28 @@
 #' @rdname read_spe
 #'
 #'
-#' @param file Name of the SPE file to read data from.
+#' @param file (charter): Name of the SPE file to read data from.
 #'
-#' @param xaxis Units of x-axis, e.g., `"file"`, `"px"`, `"nm"`, `"energy"`,
+#' @param xaxis (charter): Units of x-axis, e.g., `"file"`, `"px"`, `"nm"`, `"energy"`,
 #'        `"raman"`, `...`
 #'
 #'    Function [read_spe()] automatically checks if the x-calibration data are
 #' available and uses them (if possible) to reconstruct the `xaxis` in the
 #' selected units.
 #'
-#' @param acc2avg Whether to divide the actual data set by the number of
-#'        accumulations, thus transforming *accumulated* spectra to
-#'        *averaged* spectra. WinSpec does not do this automatically, so the
-#'        spectral intensity is always proportional to the number of
-#'        accumulations.
+#' @param acc2avg (logical): Whether to divide the actual data set by
+#'        the number of accumulations, thus transforming *accumulated*
+#'        spectra to *averaged* spectra.
+#'        WinSpec does not do this automatically, so the  spectral
+#'        intensity is always proportional to the number of accumulations.
 #'        The flag `@data$averaged` is automatically set to `TRUE`.
 #'
-#' @param cts_sec Whether to divide the actual data set by the exposure time,
-#'        thus going to count per second unit.
+#' @param cts_sec (logical): Whether to divide the actual data set by the
+#'        exposure time,  thus going to count per second unit.
 #'
-#' @param keys_hdr2data Which metadata from the file header should be saved to
-#'        the `@data` slot of a newly created `hyperSpec` object.
+#' @param keys_hdr2data (charter): Which metadata from the file header
+#'        should be saved to the `@data` slot of a newly created
+#'        `hyperSpec` object.
 #'
 #' @return [hyperSpec][hyperSpec::hyperSpec-class()] object.
 #'
