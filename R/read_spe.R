@@ -21,8 +21,8 @@
 #'
 #' @param file (charter): Name of the SPE file to read data from.
 #'
-#' @param xaxis (charter): Units of x-axis, e.g., `"file"`, `"px"`, `"nm"`, `"energy"`,
-#'        `"raman"`, `...`
+#' @param xaxis (charter): Units of x-axis, e.g., `"file"`, `"px"`, `"nm"`,
+#'        `"energy"`, `"raman"`, `...`
 #'
 #'    Function [read_spe()] automatically checks if the x-calibration data are
 #' available and uses them (if possible) to reconstruct the `xaxis` in the
