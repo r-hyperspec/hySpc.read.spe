@@ -39,9 +39,9 @@
 #'        thus going to count per second unit.
 #'
 #' @param keys_hdr2data Which metadata from the file header should be saved to
-#'        the `@data` slot of a newly created `hyperSpec` object
+#'        the `@data` slot of a newly created `hyperSpec` object.
 #'
-#' @return `hyperSpec` object.
+#' @return [hyperSpec][hyperSpec::hyperSpec-class()] object.
 #'
 #'
 #' @author R. Kiselev, C. Beleites
