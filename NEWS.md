@@ -13,6 +13,9 @@ Sang and the team carried out a significant overhaul of `hyperSpec` which led to
   - `hyperSpec::.read.spe.xml_string()` -> `hySpc.read.spe::read_spe_xml_string()`
   - `hyperSpec::.read.spe.header()` -> `hySpc.read.spe::read_spe_header()`
   
+* In `read_spe()` and `spe_plot_calibration_points()`, argument `xaxis` was renamed to `wl_units` and default value was changed from `"file`" to `NULL` (#20, #21).
+
+
 ## New Features
 
 * When new versions of the data are pushed to this repo, the newly created `.tar.gz` is automatically deployed to `pkg-repo`.
