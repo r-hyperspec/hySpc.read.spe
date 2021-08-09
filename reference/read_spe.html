@@ -195,8 +195,8 @@ should be saved to the <code>@data</code> slot of a newly created
 <span class='op'>}</span><span class='op'>)</span>
 
 <span class='co'># Example 1</span>
-<span class='va'>blut1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"blut1.SPE"</span>, package <span class='op'>=</span> <span class='st'>"hySpc.read.spe"</span><span class='op'>)</span>
-<span class='va'>spc_blut1</span> <span class='op'>&lt;-</span> <span class='fu'>read_spe</span><span class='op'>(</span><span class='va'>blut1</span><span class='op'>)</span>
+<span class='va'>f_blut1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"blut1.SPE"</span>, package <span class='op'>=</span> <span class='st'>"hySpc.read.spe"</span><span class='op'>)</span>
+<span class='va'>spc_blut1</span> <span class='op'>&lt;-</span> <span class='fu'>read_spe</span><span class='op'>(</span><span class='va'>f_blut1</span><span class='op'>)</span>
 
 <span class='va'>spc_blut1</span>
 </div><div class='output co'>#&gt; hyperSpec object
@@ -207,11 +207,11 @@ should be saved to the <code>@data</code> slot of a newly created
 </div><div class='img'><img src='read_spe-1.png' alt='' width='466' height='288' /></div><div class='input'>
 
 <span class='co'># Example 2</span>
-<span class='va'>spe3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>
+<span class='va'>f_spe3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span>
   <span class='st'>"extdata"</span>, <span class='st'>"spe_format_3.0.SPE"</span>,
   package <span class='op'>=</span> <span class='st'>"hySpc.read.spe"</span>
 <span class='op'>)</span>
-<span class='va'>spc_spe3</span> <span class='op'>&lt;-</span> <span class='fu'>read_spe</span><span class='op'>(</span><span class='va'>spe3</span><span class='op'>)</span>
+<span class='va'>spc_spe3</span> <span class='op'>&lt;-</span> <span class='fu'>read_spe</span><span class='op'>(</span><span class='va'>f_spe3</span><span class='op'>)</span>
 
 <span class='va'>spc_spe3</span>
 </div><div class='output co'>#&gt; hyperSpec object
