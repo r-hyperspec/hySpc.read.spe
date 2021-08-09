@@ -6,8 +6,9 @@ Authors@R: c(
     person("Claudia",   "Beleites", role = c("aut", "cre"), email = "Claudia.Beleites@chemometrix.gmbh"),
     person("Roman",     "Kiselev",  role = c("aut")),
     person("Sang",      "Truong",   role = c("aut"), email = "sttruong@stanford.edu"),
-    person("Vilmantas", "Gegzna",   role = c("aut"))
-    )
+    person("Vilmantas", "Gegzna",   role = c("aut")),
+    person("Bryan",     "Hanson",   role = c("ctb"))
+  )
 Description: File import filters for a number of file formats produced by 
     Princeton Instruments spectrometers. 
     The imported data are returned as 'hyperSpec' objects.
