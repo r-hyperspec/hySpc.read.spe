@@ -62,8 +62,8 @@
 #' })
 #'
 #' # Example 1
-#' blut1 <- system.file("extdata", "blut1.SPE", package = "hySpc.read.spe")
-#' spc_blut1 <- read_spe(blut1)
+#' f_blut1 <- system.file("extdata", "blut1.SPE", package = "hySpc.read.spe")
+#' spc_blut1 <- read_spe(f_blut1)
 #'
 #' spc_blut1
 #'
@@ -71,11 +71,11 @@
 #'
 #'
 #' # Example 2
-#' spe3 <- system.file(
+#' f_spe3 <- system.file(
 #'   "extdata", "spe_format_3.0.SPE",
 #'   package = "hySpc.read.spe"
 #' )
-#' spc_spe3 <- read_spe(spe3)
+#' spc_spe3 <- read_spe(f_spe3)
 #'
 #' spc_spe3
 #'
@@ -342,17 +342,24 @@ read_spe_header <- function(file) {
 
 hySpc.testthat::test(read_spe) <- function() {
 
-  context("read_spe")
-
   # File names
 
   # polystyrene <- "fileio\\spe\\polystyrene.SPE"
-  blut1 <- system.file("extdata", "blut1.SPE", package = "hySpc.read.spe")
-  spe3 <- system.file("extdata", "spe_format_3.0.SPE", package = "hySpc.read.spe")
+  f_blut1 <- system.file(
+    "extdata",
+    "blut1.SPE",
+    package = "hySpc.read.spe"
+  )
+
+  f_spe3 <- system.file(
+    "extdata",
+    "spe_format_3.0.SPE",
+    package = "hySpc.read.spe"
+  )
 
   # Unit tests for `read_spe` itself
   test_that("read_spe correctly extracts spectral data from SPE file", {
-    fname <- blut1
+    fname <- f_blut1
     expect_true(file.exists(fname))
     spc <- read_spe(fname)
 
@@ -364,7 +371,7 @@ hySpc.testthat::test(read_spe) <- function() {
   })
 
   test_that("read_spe() wl_units values", {
-    fname <- blut1
+    fname <- f_blut1
 
     expect_silent(spc_default <- read_spe(fname, wl_units = NULL))
     expect_silent(spc_px <- read_spe(fname, wl_units = "px"))
@@ -376,7 +383,7 @@ hySpc.testthat::test(read_spe) <- function() {
   })
 
   test_that("read_spe(): arg. 'xaxis' is deprecated. ", {
-    fname <- blut1
+    fname <- f_blut1
 
     expect_warning(spc_default_d <- read_spe(fname, xaxis = NULL), "deprecated")
     expect_silent(spc_default_ok <- read_spe(fname, wl_units = NULL))
@@ -386,7 +393,7 @@ hySpc.testthat::test(read_spe) <- function() {
 
 
   test_that("read_spe detects an XML footer in SPE 3.0 file", {
-    fname <- spe3
+    fname <- f_spe3
     expect_true(file.exists(fname))
     spc <- read_spe(fname)
 
@@ -398,7 +405,7 @@ hySpc.testthat::test(read_spe) <- function() {
     "read_spe correctly parses XML footer with SPE 3.0 file and",
     "saves metadata in hyperSpec object"
   ), {
-    fname <- spe3
+    fname <- f_spe3
     expect_true(file.exists(fname))
     spc <- read_spe(fname)
 
@@ -411,7 +418,7 @@ hySpc.testthat::test(read_spe) <- function() {
 
   # Unit tests for helper functions of `read_spe` (whose name starts with .)
   test_that("read_spe_xml_string throws error on SPE format below v3.0", {
-    fname <- blut1
+    fname <- f_blut1
     expect_true(file.exists(fname))
 
     expect_error(read_spe_xml_string(fname), regexp = "*no XML*")
@@ -419,10 +426,10 @@ hySpc.testthat::test(read_spe) <- function() {
 
 
   test_that("We can correctly read XML footer from SPE3.0 file", {
-    expect_true(file.exists(spe3))
+    expect_true(file.exists(f_spe3))
 
-    xml_file <- paste0(spe3, "_metadata.xml")
-    actual_xml_footer <- read_spe_xml_string(spe3)
+    xml_file <- paste0(f_spe3, "_metadata.xml")
+    actual_xml_footer <- read_spe_xml_string(f_spe3)
     expected_xml_footer <- readChar(xml_file, file.info(xml_file)$size)
     expect_equal(actual_xml_footer, expected_xml_footer)
   })
@@ -432,10 +439,10 @@ hySpc.testthat::test(read_spe) <- function() {
     "read_spe_xml correctly parses the XML footer and",
     " can extract the actual data"
   ), {
-    expect_true(file.exists(spe3))
+    expect_true(file.exists(f_spe3))
 
     # Read XML footer and convert it to R list
-    x <- read_spe_xml(spe3)
+    x <- read_spe_xml(f_spe3)
     expect_true(is.list(x))
 
     # Check values of some elements

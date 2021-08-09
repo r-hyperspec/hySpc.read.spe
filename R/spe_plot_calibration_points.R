@@ -78,7 +78,6 @@ spe_plot_calibration_points <- function(file,
 # Unit tests -----------------------------------------------------------------
 
 hySpc.testthat::test(spe_plot_calibration_points) <- function() {
-  context("spe_plot_calibration_points")
 
   # File names ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   #

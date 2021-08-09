@@ -22,7 +22,7 @@ Depends:
     hyperSpec
 Imports:
     hySpc.testthat,
-    testthat,
+    testthat (>= 3.0.0),
     methods,
     xml2
 Suggests:
@@ -34,4 +34,5 @@ URL:
 BugReports: https://github.com/r-hyperspec/hySpc.read.spe/issues
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3
 
