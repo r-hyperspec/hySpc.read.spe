@@ -21,7 +21,6 @@ Additional_repositories:
 Depends:
     hyperSpec
 Imports:
-    hySpc.testthat,
     testthat (>= 3.0.0),
     methods,
     xml2
