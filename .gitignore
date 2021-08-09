@@ -26,7 +26,8 @@ docs/
 
 # Unit tests
 tests/testthat/Rplots.pdf
-tests/testthat/fileio
+tests/testthat/test_*.R
+tests/testthat/test-*.R
 
 # Vignettes
 vignettes/*-pkg.bib

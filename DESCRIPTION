@@ -21,18 +21,21 @@ Additional_repositories:
 Depends:
     hyperSpec
 Imports:
-    hySpc.testthat,
     testthat (>= 3.0.0),
     methods,
     xml2
 Suggests:
     covr,
+    roxut,
     vdiffr (>= 1.0.0)
 URL:
     https://r-hyperspec.github.io/hySpc.read.spe,
     https://github.com/r-hyperspec/hySpc.read.spe
 BugReports: https://github.com/r-hyperspec/hySpc.read.spe/issues
 RoxygenNote: 7.1.1
-Roxygen: list(markdown = TRUE)
+Roxygen: list(
+    markdown = TRUE,
+    packages = "roxut", roclets = c("namespace", "rd", "roxut::tests_roclet")
+  )
 Config/testthat/edition: 3
 
