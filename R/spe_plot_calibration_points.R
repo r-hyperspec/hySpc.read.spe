@@ -77,48 +77,56 @@ spe_plot_calibration_points <- function(file,
 
 # Unit tests -----------------------------------------------------------------
 
-hySpc.testthat::test(spe_plot_calibration_points) <- function() {
+#' @tests testthat
+#'
+#' # File names ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' f_blut1 <- system.file(
+#'   "extdata",
+#'   "blut1.SPE",
+#'   package = "hySpc.read.spe"
+#' )
+#'
+#' f_spe3 <- system.file(
+#'   "extdata",
+#'   "spe_format_3.0.SPE",
+#'   package = "hySpc.read.spe"
+#' )
+#'
+#' # Visual tests ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#'
+#' test_that("result with calibration data", {
+#'   vdiffr::expect_doppelganger(
+#'     "calibration-data-present--default",
+#'     spe_plot_calibration_points(f_blut1)
+#'   )
+#'
+#'   vdiffr::expect_doppelganger(
+#'     "calibration-data-present--wl_units-nm",
+#'     spe_plot_calibration_points(f_blut1, wl_units = "nm")
+#'   )
+#' })
+#'
+#'
+#' test_that("no callibration data", {
+#'   vdiffr::expect_doppelganger(
+#'     "calibration-points-missing--default",
+#'     expect_warning(
+#'       expect_warning(
+#'         spe_plot_calibration_points(f_spe3),
+#'         "No calibration data!" # Warning 2
+#'       ),
+#'       "Cannot show calibration data in pixels" # Warning 1
+#'     )
+#'   )
+#' })
+#'
+#' test_that("spe_plot_calibration_points(): arg. 'xaxis' is deprecated. ", {
+#'   expect_warning(
+#'     vdiffr::expect_doppelganger(
+#'       "calibration-data-present--default", # The same name as above
+#'       spe_plot_calibration_points(f_blut1, xaxis = NULL)
+#'     ),
+#'     "deprecated"
+#'   )
+#' })
 
-  # File names ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  #
-  f_blut1 <- system.file("extdata", "blut1.SPE", package = "hySpc.read.spe")
-  f_spe3 <- system.file("extdata", "spe_format_3.0.SPE", package = "hySpc.read.spe")
-
-  # Visual tests ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  test_that("result with callibration data", {
-    vdiffr::expect_doppelganger(
-      "calibration-data-present--default",
-      spe_plot_calibration_points(f_blut1)
-    )
-
-    vdiffr::expect_doppelganger(
-      "calibration-data-present--wl_units-nm",
-      spe_plot_calibration_points(f_blut1, wl_units = "nm")
-    )
-  })
-
-
-  test_that("no callibration data", {
-    vdiffr::expect_doppelganger(
-      "calibration-points-missing--default",
-      expect_warning(
-        expect_warning(
-          spe_plot_calibration_points(f_spe3),
-          "No calibration data!" # Warning 2
-        ),
-        "Cannot show calibration data in pixels" # Warning 1
-      )
-    )
-  })
-
-  test_that("spe_plot_calibration_points(): arg. 'xaxis' is deprecated. ", {
-    expect_warning(
-      vdiffr::expect_doppelganger(
-        "calibration-data-present--default", # The same name as above
-        spe_plot_calibration_points(f_blut1, xaxis = NULL)
-      ),
-      "deprecated"
-    )
-  })
-}
