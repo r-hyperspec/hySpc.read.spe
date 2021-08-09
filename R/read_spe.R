@@ -16,6 +16,7 @@
 #' the y-calibration data structure is not extracted from the file
 #' since it is not saved there by WinSpec and is always empty.
 #'
+#' @name read_spe
 #' @rdname read_spe
 #'
 #'
@@ -50,6 +51,145 @@
 #'
 #'
 #' @author R. Kiselev, C. Beleites
+#'
+#'
+#' @tests testthat
+#'
+#' # File names
+#'
+#' # polystyrene <- "fileio\\spe\\polystyrene.SPE"
+#' f_blut1 <- system.file(
+#'   "extdata",
+#'   "blut1.SPE",
+#'   package = "hySpc.read.spe"
+#' )
+#'
+#' f_spe3 <- system.file(
+#'   "extdata",
+#'   "spe_format_3.0.SPE",
+#'   package = "hySpc.read.spe"
+#' )
+#'
+#' # Unit tests for `read_spe` itself
+#' test_that("read_spe correctly extracts spectral data from SPE file", {
+#'   fname <- f_blut1
+#'   expect_true(file.exists(fname))
+#'   spc <- read_spe(fname)
+#'
+#'   # We check that specific values are correctly read from a particular file
+#'   # This test is not generic and works with this and only this SPE file
+#'   expect_equal(spc$spc[[5, 77]], 1484)
+#'   expect_equal(spc$spc[[2, 811]], 606)
+#'   expect_equal(spc@wavelength[621], 2618.027)
+#' })
+#'
+#' test_that("read_spe() wl_units values", {
+#'   fname <- f_blut1
+#'
+#'   expect_silent(spc_default <- read_spe(fname, wl_units = NULL))
+#'   expect_silent(spc_px <- read_spe(fname, wl_units = "px"))
+#'   expect_silent(spc_nm <- read_spe(fname, wl_units = "nm"))
+#'
+#'   expect_match(as.character(labels(spc_default)$.wavelength), "Raman")
+#'   expect_match(as.character(labels(spc_nm)$.wavelength), "nm")
+#'   expect_match(as.character(labels(spc_px)$.wavelength), "pixel")
+#' })
+#'
+#' test_that("read_spe(): arg. 'xaxis' is deprecated. ", {
+#'   fname <- f_blut1
+#'
+#'   expect_warning(spc_default_d <- read_spe(fname, xaxis = NULL), "deprecated")
+#'   expect_silent(spc_default_ok <- read_spe(fname, wl_units = NULL))
+#'
+#'   expect_equal(spc_default_d, spc_default_ok)
+#' })
+#'
+#'
+#' test_that("read_spe detects an XML footer in SPE 3.0 file", {
+#'   fname <- f_spe3
+#'   expect_true(file.exists(fname))
+#'   spc <- read_spe(fname)
+#'
+#'   expect_true("xml" %in% names(spc@data))
+#' })
+#'
+#'
+#' test_that(paste(
+#'   "read_spe correctly parses XML footer with SPE 3.0 file and",
+#'   "saves metadata in hyperSpec object"
+#' ), {
+#'   fname <- f_spe3
+#'   expect_true(file.exists(fname))
+#'   spc <- read_spe(fname)
+#'
+#'   expect_equal(
+#'     attr(spc$xml$SpeFormat$DataFormat$DataBlock, "pixelFormat"),
+#'     "MonochromeFloating32"
+#'   )
+#' })
+#'
+#'
+#' # Unit tests for helper functions of `read_spe` (whose name starts with .)
+#' test_that("read_spe_xml_string throws error on SPE format below v3.0", {
+#'   fname <- f_blut1
+#'   expect_true(file.exists(fname))
+#'
+#'   expect_error(read_spe_xml_string(fname), regexp = "*no XML*")
+#' })
+#'
+#'
+#' test_that("We can correctly read XML footer from SPE3.0 file", {
+#'   expect_true(file.exists(f_spe3))
+#'
+#'   xml_file <- paste0(f_spe3, "_metadata.xml")
+#'   actual_xml_footer <- read_spe_xml_string(f_spe3)
+#'   expected_xml_footer <- readChar(xml_file, file.info(xml_file)$size)
+#'   expect_equal(actual_xml_footer, expected_xml_footer)
+#' })
+#'
+#'
+#' test_that(paste(
+#'   "read_spe_xml correctly parses the XML footer and",
+#'   " can extract the actual data"
+#' ), {
+#'   expect_true(file.exists(f_spe3))
+#'
+#'   # Read XML footer and convert it to R list
+#'   x <- read_spe_xml(f_spe3)
+#'   expect_true(is.list(x))
+#'
+#'   # Check values of some elements
+#'   expect_true(is.list(x))
+#'   expect_true("SpeFormat" %in% names(x))
+#'
+#'   # Check file format version and namespace URL
+#'   expect_equal(attr(x$SpeFormat, "version"), "3.0")
+#'   expect_equal(
+#'     attr(x$SpeFormat, "xmlns"),
+#'     "http://www.princetoninstruments.com/spe/2009"
+#'   )
+#'
+#'   # Check that some children are present
+#'   expect_true("DataFormat" %in% names(x$SpeFormat))
+#'   expect_true("Calibrations" %in% names(x$SpeFormat))
+#'   expect_true("DataHistories" %in% names(x$SpeFormat))
+#'   expect_true("GeneralInformation" %in% names(x$SpeFormat))
+#'
+#'   # Check that we can correctly extract file creation date
+#'   info <- x$SpeFormat$GeneralInformation$FileInformation
+#'   expect_equal(attr(info, "created"), "2018-01-26T16:31:09.0979397+01:00")
+#'
+#'   # Check that we can correctly extract pixel format and laser line
+#'   expect_equal(
+#'     attr(x$SpeFormat$DataFormat$DataBlock, "pixelFormat"),
+#'     "MonochromeFloating32"
+#'   )
+#'   expect_equal(
+#'     attr(x$SpeFormat$Calibrations$WavelengthMapping, "laserLine"),
+#'     "785"
+#'   )
+#' })
+#'
 #'
 #' @importFrom graphics title
 #' @importFrom methods new
@@ -335,145 +475,4 @@ read_spe_header <- function(file) {
   hdr$xCalPolyUnit <- spe_units[hdr$xCalPolyUnit + 1]
 
   return(hdr)
-}
-
-
-# Unit tests -----------------------------------------------------------------
-
-hySpc.testthat::test(read_spe) <- function() {
-
-  # File names
-
-  # polystyrene <- "fileio\\spe\\polystyrene.SPE"
-  f_blut1 <- system.file(
-    "extdata",
-    "blut1.SPE",
-    package = "hySpc.read.spe"
-  )
-
-  f_spe3 <- system.file(
-    "extdata",
-    "spe_format_3.0.SPE",
-    package = "hySpc.read.spe"
-  )
-
-  # Unit tests for `read_spe` itself
-  test_that("read_spe correctly extracts spectral data from SPE file", {
-    fname <- f_blut1
-    expect_true(file.exists(fname))
-    spc <- read_spe(fname)
-
-    # We check that specific values are correctly read from a particular file
-    # This test is not generic and works with this and only this SPE file
-    expect_equal(spc$spc[[5, 77]], 1484)
-    expect_equal(spc$spc[[2, 811]], 606)
-    expect_equal(spc@wavelength[621], 2618.027)
-  })
-
-  test_that("read_spe() wl_units values", {
-    fname <- f_blut1
-
-    expect_silent(spc_default <- read_spe(fname, wl_units = NULL))
-    expect_silent(spc_px <- read_spe(fname, wl_units = "px"))
-    expect_silent(spc_nm <- read_spe(fname, wl_units = "nm"))
-
-    expect_match(as.character(labels(spc_default)$.wavelength), "Raman")
-    expect_match(as.character(labels(spc_nm)$.wavelength), "nm")
-    expect_match(as.character(labels(spc_px)$.wavelength), "pixel")
-  })
-
-  test_that("read_spe(): arg. 'xaxis' is deprecated. ", {
-    fname <- f_blut1
-
-    expect_warning(spc_default_d <- read_spe(fname, xaxis = NULL), "deprecated")
-    expect_silent(spc_default_ok <- read_spe(fname, wl_units = NULL))
-
-    expect_equal(spc_default_d, spc_default_ok)
-  })
-
-
-  test_that("read_spe detects an XML footer in SPE 3.0 file", {
-    fname <- f_spe3
-    expect_true(file.exists(fname))
-    spc <- read_spe(fname)
-
-    expect_true("xml" %in% names(spc@data))
-  })
-
-
-  test_that(paste(
-    "read_spe correctly parses XML footer with SPE 3.0 file and",
-    "saves metadata in hyperSpec object"
-  ), {
-    fname <- f_spe3
-    expect_true(file.exists(fname))
-    spc <- read_spe(fname)
-
-    expect_equal(
-      attr(spc$xml$SpeFormat$DataFormat$DataBlock, "pixelFormat"),
-      "MonochromeFloating32"
-    )
-  })
-
-
-  # Unit tests for helper functions of `read_spe` (whose name starts with .)
-  test_that("read_spe_xml_string throws error on SPE format below v3.0", {
-    fname <- f_blut1
-    expect_true(file.exists(fname))
-
-    expect_error(read_spe_xml_string(fname), regexp = "*no XML*")
-  })
-
-
-  test_that("We can correctly read XML footer from SPE3.0 file", {
-    expect_true(file.exists(f_spe3))
-
-    xml_file <- paste0(f_spe3, "_metadata.xml")
-    actual_xml_footer <- read_spe_xml_string(f_spe3)
-    expected_xml_footer <- readChar(xml_file, file.info(xml_file)$size)
-    expect_equal(actual_xml_footer, expected_xml_footer)
-  })
-
-
-  test_that(paste(
-    "read_spe_xml correctly parses the XML footer and",
-    " can extract the actual data"
-  ), {
-    expect_true(file.exists(f_spe3))
-
-    # Read XML footer and convert it to R list
-    x <- read_spe_xml(f_spe3)
-    expect_true(is.list(x))
-
-    # Check values of some elements
-    expect_true(is.list(x))
-    expect_true("SpeFormat" %in% names(x))
-
-    # Check file format version and namespace URL
-    expect_equal(attr(x$SpeFormat, "version"), "3.0")
-    expect_equal(
-      attr(x$SpeFormat, "xmlns"),
-      "http://www.princetoninstruments.com/spe/2009"
-    )
-
-    # Check that some children are present
-    expect_true("DataFormat" %in% names(x$SpeFormat))
-    expect_true("Calibrations" %in% names(x$SpeFormat))
-    expect_true("DataHistories" %in% names(x$SpeFormat))
-    expect_true("GeneralInformation" %in% names(x$SpeFormat))
-
-    # Check that we can correctly extract file creation date
-    info <- x$SpeFormat$GeneralInformation$FileInformation
-    expect_equal(attr(info, "created"), "2018-01-26T16:31:09.0979397+01:00")
-
-    # Check that we can correctly extract pixel format and laser line
-    expect_equal(
-      attr(x$SpeFormat$DataFormat$DataBlock, "pixelFormat"),
-      "MonochromeFloating32"
-    )
-    expect_equal(
-      attr(x$SpeFormat$Calibrations$WavelengthMapping, "laserLine"),
-      "785"
-    )
-  })
 }
