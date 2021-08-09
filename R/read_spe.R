@@ -342,8 +342,6 @@ read_spe_header <- function(file) {
 
 hySpc.testthat::test(read_spe) <- function() {
 
-  context("read_spe")
-
   # File names
 
   # polystyrene <- "fileio\\spe\\polystyrene.SPE"
