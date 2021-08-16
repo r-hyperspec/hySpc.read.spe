@@ -54,7 +54,7 @@ jobs:
         run: |
           # Vignettes are not needed for coverage tests
           roclets <- roxygen2::load_options()$roclets
-          roclets <- roclets [! roclets %in% c("vignette", "rd")]
+          roclets <- roclets[!roclets %in% c("vignette", "rd")]
           devtools::document(roclets = roclets)
         shell: Rscript {0}
 

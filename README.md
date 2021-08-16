@@ -28,7 +28,7 @@ The documentation of the other **`r-hyperspec`** family packages can be found at
 
 <!-- ---------------------------------------------------------------------- -->
 
-## Installation
+## Installation of Released Version
 
 ### Install from CRAN
 
@@ -38,6 +38,16 @@ You can install the released version of **hySpc.read.spe** from [CRAN](https://c
 install.packages("hySpc.read.spe")
 ```
 
+## Installation of In-Development Version
+
+### Install from CRAN-like Repository
+
+The recommended way to install the in-development version:
+
+```r
+repos <- c("https://r-hyperspec.github.io/pkg-repo/", getOption("repos"))
+install.packages("hySpc.read.spe", repos = repos)
+```
 
 ### Install from GitHub
 
