@@ -1,7 +1,6 @@
 #' @keywords internal
 #'
 #' @import hyperSpec
-#' @import testthat
 #'
 "_PACKAGE"
 
