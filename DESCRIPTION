@@ -32,10 +32,9 @@ URL:
     https://r-hyperspec.github.io/hySpc.read.spe,
     https://github.com/r-hyperspec/hySpc.read.spe
 BugReports: https://github.com/r-hyperspec/hySpc.read.spe/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(
     markdown = TRUE,
     packages = "roxut", roclets = c("namespace", "rd", "roxut::tests_roclet")
   )
 Config/testthat/edition: 3
-
