@@ -22,12 +22,12 @@ Additional_repositories:
 Depends:
     hyperSpec (>= 0.100.0)
 Imports:
-    testthat (>= 3.0.0),
     methods,
     xml2
 Suggests:
     covr,
     roxut,
+    testthat (>= 3.0.0),
     vdiffr (>= 1.0.0)
 URL:
     https://r-hyperspec.github.io/hySpc.read.spe,

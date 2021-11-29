@@ -388,7 +388,6 @@ read_spe_xml_string <- function(file) {
       "This SPE file contains no XML data: file format version",
       round(hdr$fileFormatVer, digits = 3), "< 3.0"
     ))
-    return()
   }
 
   data_size <- ifelse(hdr$datatype > 2, 2L, 4L)
