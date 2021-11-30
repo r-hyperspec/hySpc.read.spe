@@ -1,10 +1,3 @@
-# READ-ONLY FILE
-#
-# Original file resides in r-hyperspec/pkg-skelton.
-# DO NOT EDIT in any other repo as these changes will be overwritten.
-# Edit at r-hyperspec/pkg-skelton, then push there and
-# this file will be deployed to the other repos.
-#
 on:
   push:
     branches:
@@ -12,6 +5,9 @@ on:
       - main
       - master
       - develop
+
+      - auto-update
+      - auto-update-test
 
   pull_request:
     branches:
@@ -43,6 +39,7 @@ jobs:
     env:
       R_KEEP_PKG_SOURCE: yes
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      CACHE_VERSION: 1
 
     steps:
       - uses: actions/checkout@v2
@@ -68,8 +65,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-${CACHE_VERSION}-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-${CACHE_VERSION}-
 
       - name: Install system dependencies
         if: runner.os == 'Linux'
