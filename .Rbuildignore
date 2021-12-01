@@ -10,35 +10,45 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 
-# Directories
-^github-helpers$
+
+# Github
 ^\.github$
+^github-helpers$
+
+
+# Codecov
+^.codecov\.yml$
+^codecov\.yml$
+
+
+# Pkgdown
+^_pkgdown\.yml$
 ^pkgdown$
-^data-raw$
-^docs$
+ ^docs$
+
+
+# Directories
 ^_tmp$
+^data-raw$
+
 
 # Helper files
-^\.github$
-^github-helpers$
-^codecov\.yml$
-^NEWS\.html$
 ^CONTRIBUTING\.md$
+^LICENSE\.md$
+^NEWS\.html$
 ^README\.md$
 ^README\.Rmd$
-^codecov\.yml$
-^_pkgdown\.yml$
 Makefile
+
 
 # Unwanted files
 Rplots.pdf
 
-# Other/Broad
-^.*\.html
-^.*\.pdf
 
 ### Package-specific ###
 ^inst/extdata/chondro\.gz$
+^inst/extdata/winspec.pdf$
+^Vignettes-Rnw$
 tests/testthat/fileio
 
 
