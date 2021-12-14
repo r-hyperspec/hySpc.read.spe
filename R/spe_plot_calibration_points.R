@@ -121,7 +121,7 @@ spe_plot_calibration_points <- function(file,
     return(invisible(NULL))
   }
 
-  markpeak(spc, wl_convert_units(
+  mark_peak(spc, wl_convert_units(
     from   = hdr$xCalInputUnit,
     to     = .wl_fix_unit_name(wl_units),
     x      = hdr$xCalValues,
